@@ -3,8 +3,9 @@ stepsize = framesize/2;
 hw = hann(framesize+1);
 hw = hw(1:end-1);
 
-[stereo, fs] = audioread('hellowendy.wav');
+[stereo, fs] = audioread('wyd.wav');
 raw = (stereo(:,1) + stereo(:,2)) / 2;
+raw = raw(9999:end);        % undo fade in for wyd.wav
 nsamples = length(raw);
 nsamples = nsamples - mod(nsamples, framesize);
 raw = raw(1:nsamples);      % truncate. all packets will be framesize
@@ -33,7 +34,7 @@ residual = zeros(framesize, 1);
 voice1 = zeros(stepsize, nframes);
 voice2 = zeros(stepsize, nframes);
 
-threshold = 3.4;
+threshold = 1;
 
 avgs = 3;
 for i = avgs : nframes
@@ -68,5 +69,5 @@ plot(voice2)
 % spectrogram(raw, hw, stepsize, framesize, fs, 'yaxis')
 % sound(raw, fs)
 % pause(2.07)
-% sound(out, fs)
+sound(out, fs)
 % audiowrite('out.wav', out, fs)
