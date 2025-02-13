@@ -1,10 +1,12 @@
-function [voiceflag, uNew] = vad(frame, uOld, threshold, scheme)
+function [flag, cdnew] = vad(X, uold, threshold, cdold)
 
-X = fft(frame);
+scheme = 1;
+hangover = 20;
+
 Xmag = abs(X);
-u = fft(uOld);
-umag = abs(u);
-if scheme == 1
+umag = uold;
+
+if scheme == 1      % so far superior!
     T = 20*log10(mean(Xmag./umag)) - 4; % log mean ratio, Boll
 elseif scheme == 2
     T = mean(20*log10(Xmag./umag));     % mean log ratio, whoever???
@@ -12,14 +14,16 @@ else
     T = 0;
 end
 
-if T >= threshold
-    uNew = uOld;
-    T = 5;
+if T >= threshold   % voice
+    flag = 1;
+    cdnew = hangover;
 else
-    uNew = frame;
-    T = 0;
+    if cdold <= 0   % no more hangover!
+        flag = 0;
+    else            % still voice, hanging on
+        flag = 1;
+    end
+    cdnew = cdold - 1;
 end
-
-voiceflag = T * ones(size(frame,1)/2, 1);
 
 end
