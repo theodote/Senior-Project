@@ -1,4 +1,6 @@
-clear, clf;
+clear, clc, clf;
+
+% maxNumCompThreads(1);
 
 % key parameters
 framesize = 1024;
@@ -7,9 +9,9 @@ hw = hann(framesize+1);
 hw = hw(1:end-1);
 
 % prepare raw audio
-[stereo, fs] = audioread('wyd.wav');
+[stereo, fs] = audioread('hellowendy.wav');
 raw = (stereo(:,1) + stereo(:,2)) / 2;
-raw = raw(9999:end);        % undo fade in for wyd.wav
+% raw = raw(9999:end);        % undo fade in for wyd.wav
 nsamples = length(raw);
 nsamples = nsamples - mod(nsamples, framesize);
 raw = raw(1:nsamples);      % truncate. all packets will be framesize
@@ -40,9 +42,6 @@ residual = zeros(framesize, 1);
 
 voiceflags = zeros(stepsize, nframes);          % for debug plots
 flag = 0;
-
-threshold = 12;
-countdown = 0;
 
 avgs = 3;
 for i = avgs : nframes

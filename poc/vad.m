@@ -1,7 +1,7 @@
 function [flag, cdnew] = vad(X, uold, threshold, cdold)
 
 scheme = 1;
-hangover = 20;
+hangover = 50;
 
 Xmag = abs(X);
 umag = uold;
@@ -20,10 +20,11 @@ if T >= threshold   % voice
 else
     if cdold <= 0   % no more hangover!
         flag = 0;
+        cdnew = 0;
     else            % still voice, hanging on
         flag = 1;
+        cdnew = cdold - 1;
     end
-    cdnew = cdold - 1;
 end
 
 end
