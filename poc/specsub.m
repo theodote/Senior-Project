@@ -11,19 +11,20 @@ elseif flag <= 0
     u = mean(abs(Xframes),2);
 end
 
-scale = 1;
+subtscale = 1;
+mutescale = 0.03;
 
 Xmags = abs(Xframes);
-Smags = Xmags - scale * u; % the spectral subtraction!!!
+Smags = Xmags - subtscale * u;  % the spectral subtraction!!!
 Smag = Smags(:,1);  
 Smags(Smags < 0) = 0;       % "half-wave rectification"
 if flag > 0
     if Smag < NRold
-        Smag = min(Smags,[],2); % residual noise reduction
+        Smag = max(Smags,[],2); % residual noise reduction
     end
     NRnew = NRold;
 elseif flag <= 0
-    Smag = Smag * 0.03;
+    Smag = Smag * mutescale;
     NRnew = max(Smag, NRold);   % get new residue. S=N @ non speech!
 end 
 
