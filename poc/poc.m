@@ -59,12 +59,12 @@ out = reshape(rebuilt, [], 1);
 % plot
 clf
 hold on
-plot(raw, ":")
+% plot(raw, ":")
 plot(voiceflags)
-plot(out)
-plot(raw-out)
+% plot(out)
+% plot(raw-out)
 % spectrogram(out, hw, stepsize, framesize, fs, 'yaxis')
 % sound(raw, fs)
 % pause(5)
-sound(out, fs)
+% sound(out, fs)
 % audiowrite('out.wav', out, fs)
