@@ -1,13 +1,13 @@
 function [flag, cdnew] = vad(X, uold, threshold, cdold)
 
 scheme = 1;
-hangover = 50;
+hangover = 30;
 
 Xmag = abs(X);
 umag = uold;
 
 if scheme == 1      % so far superior!
-    T = 20*log10(mean(Xmag./umag)) - 4; % log mean ratio, Boll
+    T = 20*log10(mean(Xmag./umag));     % log mean ratio, Boll
 elseif scheme == 2
     T = mean(20*log10(Xmag./umag));     % mean log ratio, whoever???
 else

@@ -17,7 +17,7 @@ raw = raw(1:nsamples);      % truncate. all packets will be framesize
 % optionally mess it up
 pinkscale = 0.005;
 % raw = raw + pinkscale * pinknoise(nsamples);
-% raw = awgn(raw, 80);
+raw = awgn(raw, 30);
 
 % split into half-windows
 steps = reshape(raw, stepsize, []);
@@ -42,9 +42,9 @@ residual = zeros(framesize, 1);
 voiceflags = zeros(stepsize, nframes);          % for debug plots
 flag = 0;
 
-threshold = 3;
-countdown = 10;
+threshold = 2;
 
+countdown = 0;
 avgs = 3;
 for i = avgs : nframes
     [ ...
@@ -79,10 +79,10 @@ out = reshape(rebuilt, [], 1);
 hold on
 % plot(raw, ":")
 % plot(voiceflags)
-plot(out)
-plot(raw-out)
-% spectrogram(out, hw, stepsize, framesize, fs, 'yaxis')
-sound(raw, fs)
-pause(2.1)
+% plot(out)
+% plot(raw-out)
+spectrogram(out, hw, stepsize, framesize, fs, 'yaxis')
+% sound(raw, fs)
+% pause(2.1)
 sound(out, fs)
 % audiowrite('out.wav', out, fs)

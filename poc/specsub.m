@@ -14,20 +14,20 @@ u = zeros(size(xframes,1),1);
 if flag > 0
     u = uold;
 elseif flag <= 0
-    u = mean(abs(Xframes),2);   % BUG HERE!!! previous samples are nearly 0 due to mutescale. effectively /3. no wonder
+    u = mean(abs(Xmags),2);
 end
 % plot(u)
 
-subtscale = 1;
+subtscale = 4;
 mutescale = 0.03;
 
-Smags = Xmags - subtscale * u;  % the spectral subtraction!!!
+Smags = Xmags - subtscale * u;  % the spectral subtraction
 % plot(Smags)
 Smags(Smags < 0) = 0;           % "half-wave rectification"
 Smag = Smags(:,1);  
 if flag > 0             % YES SPEECH
-    if Smag < NRold
-        Smag = max([Smag, Ymags],[],2); % residual noise reduction
+    for i = find(Smag < NRold)
+        Smag(i) = max([Smag(i), Ymags(i,2:end)],[],2); % residual noise reduction
     end
     NRnew = NRold;
 elseif flag <= 0        % NO SPEECH
