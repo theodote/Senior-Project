@@ -7,9 +7,9 @@ hw = hann(framesize+1);
 hw = hw(1:end-1);
 
 % prepare raw audio
-[stereo, fs] = audioread('hellowendy.wav');
+[stereo, fs] = audioread('wyd.wav');
 raw = (stereo(:,1) + stereo(:,2)) / 2;
-% raw = raw(9999:end);        % undo fade in for wyd.wav
+raw = raw(9999:end);        % undo fade in for wyd.wav
 nsamples = length(raw);
 nsamples = nsamples - mod(nsamples, framesize);
 raw = raw(1:nsamples);      % truncate. all packets will be framesize
@@ -42,20 +42,20 @@ residual = zeros(framesize, 1);
 voiceflags = zeros(stepsize, nframes);          % for debug plots
 flag = 0;
 
-threshold = 3;
-countdown = 10;
+threshold = 12;
+countdown = 0;
 
 avgs = 3;
 for i = avgs : nframes
     [ ...
-    outframes(:,i), ...
-    specnoise, ...
-    residual, ...
-    countdown, ...
-    flag ...
+        outframes(:,i), ...
+        specnoise, ...
+        residual, ...
+        countdown, ...
+        flag ...
     ] = specsub( ...
         inframes(:,i:-1:i-avgs+1), ...
-        outframes(:,i:-1:i-avgs+1), ...
+        inframes(:,i:-1:i-avgs+1), ...
         specnoise, ...
         residual, ...
         countdown, ...
@@ -69,20 +69,20 @@ voiceflags = reshape(voiceflags, [], 1);
 %%% ALL DONE
 
 % reconstruct
-rebuilt(:,1) = outframes(1:stepsize , 1);
+rebuilt(:,1) = inframes(1:stepsize , 1);
 for i = 2 : nframes
-    rebuilt(:,i) = outframes(stepsize+1:end , i-1) + outframes(1:stepsize , i);
+    rebuilt(:,i) = inframes(stepsize+1:end , i-1) + inframes(1:stepsize , i);
 end
 out = reshape(rebuilt, [], 1);
 
 % plot
 hold on
 % plot(raw, ":")
-% plot(voiceflags)
+plot(voiceflags)
 plot(out)
 plot(raw-out)
 % spectrogram(out, hw, stepsize, framesize, fs, 'yaxis')
-sound(raw, fs)
-pause(2.1)
+% sound(raw, fs)
+% pause(2.5)
 sound(out, fs)
 % audiowrite('out.wav', out, fs)

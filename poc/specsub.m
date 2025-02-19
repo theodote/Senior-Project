@@ -1,8 +1,11 @@
-function [s, unew, NRnew, cdnew, flag] = specsub(xframes, uold, NRold, cdold, threshold)
+function [s, unew, NRnew, cdnew, flag] = specsub(xframes, yframes, uold, NRold, cdold, threshold)
 
 Xframes = fft(xframes,size(xframes,1),1);
 Xmags = abs(Xframes);
 % plot(Xmags)
+Yframes = fft(xframes,size(yframes,1),1);
+Ymags = abs(Yframes);
+% plot(Ymags)
 u = zeros(size(xframes,1),1);
 
 % REVIEW ORDER OF OPERATIONS from block diagram
@@ -20,16 +23,16 @@ mutescale = 0.03;
 
 Smags = Xmags - subtscale * u;  % the spectral subtraction!!!
 % plot(Smags)
-Smag = Smags(:,1);  
 Smags(Smags < 0) = 0;           % "half-wave rectification"
-if flag > 0
+Smag = Smags(:,1);  
+if flag > 0             % YES SPEECH
     if Smag < NRold
-        Smag = max(Smags,[],2); % residual noise reduction
+        Smag = max([Smag, Ymags],[],2); % residual noise reduction
     end
     NRnew = NRold;
-elseif flag <= 0
+elseif flag <= 0        % NO SPEECH
     NRnew = max(Smag, NRold);   % get new residue. S=N @ non speech!
-    Smag = Smag * mutescale;
+    Smag = Smag * mutescale;    % attenuare during non-activity
 end 
 % plot(Smags)
 
