@@ -42,7 +42,7 @@ residual = zeros(framesize, 1);
 voiceflags = zeros(stepsize, nframes);          % for debug plots
 flag = 0;
 
-threshold = 3;
+threshold = 2;
 
 countdown = 0;
 avgs = 3;
@@ -82,11 +82,7 @@ plot(t, raw, ":")
 plot(t, out)
 plot(t, raw-out)
 plot(t, voiceflags)
-legend('Raw', 'Processed', 'Difference', 'Voice flags')
-xlim([0, nframes*stepsize/fs])
-xlabel('Time (s)')
-ylabel('Amplitude (float)')
-title('Spectral subtraction demo')
+legend('Raw', '')
 % spectrogram(out, hw, stepsize, framesize, fs, 'yaxis')
 sound(raw, fs)
 pause(2.3)

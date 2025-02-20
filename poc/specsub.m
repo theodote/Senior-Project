@@ -28,6 +28,7 @@ Smag = Smags(:,1);
 if flag > 0             % YES SPEECH
     for i = find(Smag < NRold)
         Smag(i) = max([Smag(i), Ymags(i,2:end)],[],2); % residual noise reduction
+        % SEEMINGLY INEFFECTIVE. WHAT'S UP?
     end
     NRnew = NRold;
 elseif flag <= 0        % NO SPEECH
