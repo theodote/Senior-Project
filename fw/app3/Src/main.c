@@ -28,26 +28,29 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "arm_math.h"
+// #include "dsp/transform_functions.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 typedef enum { false, true } bool;
+typedef enum { NORMAL, CIRCULAR } dmaType;
 
 #define MAX_BUFS  16  // I yield.
 typedef struct multiBuffer {
   uint16_t numBufs;
   uint16_t bufSize;
-  volatile bool loaded;
+  dmaType dmaMode;
+  volatile bool dmaDone;
   volatile bool finished;
   union {
     struct {
-      volatile uint16_t loadInd;
+      volatile uint16_t dmaInd;
       volatile uint16_t activeInds[MAX_BUFS - 1];
     };
     volatile uint16_t indices[MAX_BUFS];
   };
-  volatile int16_t* buffers;  // TODO: really signed?
+  volatile void* buffers;
 } MultiBuffer;
 /* USER CODE END PTD */
 
@@ -55,43 +58,38 @@ typedef struct multiBuffer {
 /* USER CODE BEGIN PD */
 #define HALF_FRAME_SIZE   512
 #define FULL_FRAME_SIZE   2 * HALF_FRAME_SIZE
-#define FRAMES_TO_PROCESS 3
-#define INT16_TO_FLOAT    1.0f / 4096.0f
-#define FLOAT_TO_INT16    4096.0f
-#define NUM_BUFS          5
+#define ADC_MAX           4096
+#define ADC_MAX_F         4096.0f
+#define ADC_MID           2048
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define NEXT(a,b)       ((a)==(b-1)? 0 : (a+1))
-#define PREV(a,b)       ((a)==0? (b-1) : (a-1))
+#define NEXT(n,m)               ((n) == (m-1) ? 0 : (n+1))
+#define PREV(n,m)               ((n) == 0 ? (m-1) : (n-1))
 
-// #define UNWRAP(x)   ((int(*))[x.numBufs])(x.buffers)
-#define ACTIVE_BUF(x, i, j) ((int16_t(*)[x.bufSize]) (x.buffers))[x.activeInds[i]][j]
-#define LOAD_BUF(x, j)   ((int16_t(*)[x.bufSize]) (x.buffers))[x.loadInd][j]
-// #define ROTATE(x,i)     (NEXT(x.indices[i], x.numBufs))
+#define ACTIVE_BUF(b, t, n) ((t(*)[b.bufSize]) (b.buffers))[b.activeInds[n]]
+#define DMA_BUF(b, t)       ((t(*)[b.bufSize]) (b.buffers))[b.dmaInd]
 
+#define INT16_TO_FLOAT(n)       (1.0f / ADC_MAX_F * (n - ADC_MID))
+#define FLOAT_TO_INT16(n)       ((int16_t)(ADC_MAX * n) + ADC_MID)
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
 int16_t adcData[2 * HALF_FRAME_SIZE] = {0};
-MultiBuffer adcBuf = {2, HALF_FRAME_SIZE, false, false, {.indices = {0, 1}}, adcData};
+MultiBuffer adcBuf = {2, HALF_FRAME_SIZE, CIRCULAR, false, false, {.indices = {0, 1}}, (void*)adcData};
 int16_t dacData[2 * HALF_FRAME_SIZE] = {0};
-MultiBuffer dacBuf = {2, HALF_FRAME_SIZE, false, false, {.indices = {1, 0}}, dacData};
+MultiBuffer dacBuf = {2, HALF_FRAME_SIZE, CIRCULAR, false, false, {.indices = {0, 1}}, (void*)dacData};
 
-// volatile uint16_t adcInIndex = 0;
-// volatile uint16_t adcOutIndex = HALF_FRAME_SIZE;
-// volatile uint16_t dacInIndex = HALF_FRAME_SIZE;
-// volatile uint16_t dacOutIndex = 0;
+float inData[2 * HALF_FRAME_SIZE] = {0.0};
+MultiBuffer inBuf = {2, HALF_FRAME_SIZE, NORMAL, false, false, {.indices = {0, 1}}, (void*)inData};
+float outData[2 * HALF_FRAME_SIZE] = {0.0};
+MultiBuffer outBuf = {2, HALF_FRAME_SIZE, NORMAL, false, false, {.indices = {0, 1}}, (void*)outData};
 
-// static volatile int16_t* adcInPtr = &adcData[0];
-// static volatile int16_t* adcOutPtr = &adcData[HALF_FRAME_SIZE];
-// static volatile int16_t* dacInPtr = &dacData[HALF_FRAME_SIZE];
-// static volatile int16_t* dacOutPtr = &dacData[0];
-
-// volatile uint8_t adcDataReady = 0;
+arm_rfft_fast_instance_f32 fft;
+float frequency[HALF_FRAME_SIZE] = {0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -102,48 +100,41 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void MultiBufferRotate(MultiBuffer* mb) {
+  for (int i = 0; i < mb->numBufs; i++) {
+    mb->indices[i] = NEXT(mb->indices[i], mb->numBufs);
+  }
+}
+
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-  for (int i = 0; i < adcBuf.numBufs; i++) {
-    adcBuf.indices[i] = NEXT(adcBuf.indices[i], adcBuf.numBufs);
-    dacBuf.indices[i] = NEXT(dacBuf.indices[i], dacBuf.numBufs);
-  }
-  adcBuf.loaded = true;
-  // adcInIndex = (adcInIndex + HALF_FRAME_SIZE) % FULL_FRAME_SIZE;
-  // adcOutIndex = (adcOutIndex + HALF_FRAME_SIZE) % FULL_FRAME_SIZE;
-  // dacInIndex = (dacInIndex + HALF_FRAME_SIZE) % FULL_FRAME_SIZE;
-  // dacOutIndex = (dacOutIndex + HALF_FRAME_SIZE) % FULL_FRAME_SIZE;
-
-  // adcInPtr = &adcData[adcInIndex];
-  // adcOutPtr = &adcData[adcOutIndex];
-  // dacInPtr = &dacData[dacInIndex];
-  // dacOutPtr = &dacData[dacOutIndex];
-
-  // adcDataReady = 1;
+  MultiBufferRotate(&adcBuf);
+  adcBuf.dmaDone = true;
 }
 
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-  for (int i = 0; i < adcBuf.numBufs; i++) {
-    adcBuf.indices[i] = NEXT(adcBuf.indices[i], adcBuf.numBufs);
-    dacBuf.indices[i] = NEXT(dacBuf.indices[i], dacBuf.numBufs);
-  }
-  adcBuf.loaded = true;
+  MultiBufferRotate(&adcBuf);
+  adcBuf.dmaDone = true;
 }
 
 void processData() {
-  // if (adcDataReady >= 1) {
-  //   for (int i = 0; i < HALF_FRAME_SIZE; i++) {
-  //     dacInPtr[i] = adcOutPtr[i];
-  //   }
-  //   adcDataReady = 0;
-  // }
-  if (adcBuf.loaded == true) {
-    for (int i = 0; i < dacBuf.bufSize; i++) {
-      int16_t temp = ACTIVE_BUF(adcBuf, 0, i);
-      LOAD_BUF(dacBuf, i) = temp;
+  if (adcBuf.dmaDone == true) {
+    for (int i = 0; i < adcBuf.bufSize; i++) {
+      DMA_BUF(inBuf, float)[i] = INT16_TO_FLOAT( ACTIVE_BUF(adcBuf, int16_t, 0)[i] );
     }
-    adcBuf.loaded = false;
+    adcBuf.dmaDone = false;
+    MultiBufferRotate(&inBuf);
+    // memcpy(&(DMA_BUF(outBuf, float)), &(ACTIVE_BUF(inBuf, float, 0)), HALF_FRAME_SIZE * sizeof(float));
+    arm_rfft_fast_f32(&fft, ACTIVE_BUF(inBuf, float, 0), frequency, 0);
+    arm_rfft_fast_f32(&fft, frequency, ACTIVE_BUF(outBuf, float, 0), 1);
+
+    MultiBufferRotate(&outBuf);
+
+    for (int i = 0; i < adcBuf.bufSize; i++) {
+      DMA_BUF(dacBuf, int16_t)[i] = FLOAT_TO_INT16( ACTIVE_BUF(outBuf, float, 0)[i] );
+    }
+    MultiBufferRotate(&dacBuf);
   }
 }
 /* USER CODE END 0 */
@@ -187,6 +178,8 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim8);
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcData, 2 * HALF_FRAME_SIZE);
   HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1, (uint32_t*)dacData, 2 * HALF_FRAME_SIZE, DAC_ALIGN_12B_R);
+
+  arm_rfft_fast_init_f32(&fft, HALF_FRAME_SIZE);
   /* USER CODE END 2 */
 
   /* Infinite loop */
