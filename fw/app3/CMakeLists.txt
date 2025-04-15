@@ -47,16 +47,16 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-    Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c
-    Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c
+    # Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c
+    # Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c
     # Add user sources here
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
-    Drivers/CMSIS/DSP/Include/
-    Drivers/Include/
+    # Drivers/CMSIS/DSP/Include/
+    # Drivers/Include/
     # copy what you need from >> C:\Users\theodote\STM32Cube\Repository\STM32Cube_FW_F4_V1.28.0
 )
 
