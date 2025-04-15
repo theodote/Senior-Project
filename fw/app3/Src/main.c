@@ -38,22 +38,22 @@ typedef enum { false, true } bool;
 typedef struct multiBuffer {
   uint16_t numBufs;
   uint16_t bufSize;
-  bool loaded;
-  bool finished;
+  volatile bool loaded;
+  volatile bool finished;
   union {
     struct {
-      uint16_t indLoaded;
-      uint16_t indActive[MAX_BUFS - 1];
+      volatile uint16_t loadInd;
+      volatile uint16_t activeInds[MAX_BUFS - 1];
     };
-    uint16_t indices[MAX_BUFS];
+    volatile uint16_t indices[MAX_BUFS];
   };
-  int16_t* buffers;  // TODO: really signed?
+  volatile int16_t* buffers;  // TODO: really signed?
 } MultiBuffer;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define HALF_FRAME_SIZE   1024
+#define HALF_FRAME_SIZE   512
 #define FULL_FRAME_SIZE   2 * HALF_FRAME_SIZE
 #define FRAMES_TO_PROCESS 3
 #define INT16_TO_FLOAT    1.0f / 4096.0f
@@ -63,34 +63,35 @@ typedef struct multiBuffer {
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define NEXT(a,b)   ((a)==(b-1)?0:(a+1))
-#define PREV(a,b)   ((a)==0?(b-1):(a-1))
+#define NEXT(a,b)       ((a)==(b-1)? 0 : (a+1))
+#define PREV(a,b)       ((a)==0? (b-1) : (a-1))
 
-#define UNWRAP(x)   ((int(*))[x.numBufs])(x)
+// #define UNWRAP(x)   ((int(*))[x.numBufs])(x.buffers)
+#define ACTIVE_BUF(x, i, j) ((int16_t(*)[x.bufSize]) (x.buffers))[x.activeInds[i]][j]
+#define LOAD_BUF(x, j)   ((int16_t(*)[x.bufSize]) (x.buffers))[x.loadInd][j]
+// #define ROTATE(x,i)     (NEXT(x.indices[i], x.numBufs))
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-int16_t iBuffers[5 * HALF_FRAME_SIZE] = {0};
-MultiBuffer iBuf = {5, HALF_FRAME_SIZE, false, false, {0}, iBuffers};
-int16_t oBuffers[5 * HALF_FRAME_SIZE] = {0};
-MultiBuffer oBuf = {5, HALF_FRAME_SIZE, false, false, {0}, iBuffers};
-
 int16_t adcData[2 * HALF_FRAME_SIZE] = {0};
+MultiBuffer adcBuf = {2, HALF_FRAME_SIZE, false, false, {.indices = {0, 1}}, adcData};
 int16_t dacData[2 * HALF_FRAME_SIZE] = {0};
+MultiBuffer dacBuf = {2, HALF_FRAME_SIZE, false, false, {.indices = {1, 0}}, dacData};
 
-volatile uint16_t adcInIndex = 0;
-volatile uint16_t adcOutIndex = HALF_FRAME_SIZE;
-volatile uint16_t dacInIndex = HALF_FRAME_SIZE;
-volatile uint16_t dacOutIndex = 0;
+// volatile uint16_t adcInIndex = 0;
+// volatile uint16_t adcOutIndex = HALF_FRAME_SIZE;
+// volatile uint16_t dacInIndex = HALF_FRAME_SIZE;
+// volatile uint16_t dacOutIndex = 0;
 
-static volatile int16_t* adcInPtr = &adcData[0];
-static volatile int16_t* adcOutPtr = &adcData[HALF_FRAME_SIZE];
-static volatile int16_t* dacInPtr = &dacData[HALF_FRAME_SIZE];
-static volatile int16_t* dacOutPtr = &dacData[0];
+// static volatile int16_t* adcInPtr = &adcData[0];
+// static volatile int16_t* adcOutPtr = &adcData[HALF_FRAME_SIZE];
+// static volatile int16_t* dacInPtr = &dacData[HALF_FRAME_SIZE];
+// static volatile int16_t* dacOutPtr = &dacData[0];
 
-volatile uint8_t adcDataReady = 0;
+// volatile uint8_t adcDataReady = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -101,63 +102,49 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {  // assuming dma transfers are HALF_FRAME_SIZE
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-  adcInIndex = (adcInIndex + HALF_FRAME_SIZE) % FULL_FRAME_SIZE;
-  adcOutIndex = (adcOutIndex + HALF_FRAME_SIZE) % FULL_FRAME_SIZE;
-  dacInIndex = (dacInIndex + HALF_FRAME_SIZE) % FULL_FRAME_SIZE;
-  dacOutIndex = (dacOutIndex + HALF_FRAME_SIZE) % FULL_FRAME_SIZE;
+  for (int i = 0; i < adcBuf.numBufs; i++) {
+    adcBuf.indices[i] = NEXT(adcBuf.indices[i], adcBuf.numBufs);
+    dacBuf.indices[i] = NEXT(dacBuf.indices[i], dacBuf.numBufs);
+  }
+  adcBuf.loaded = true;
+  // adcInIndex = (adcInIndex + HALF_FRAME_SIZE) % FULL_FRAME_SIZE;
+  // adcOutIndex = (adcOutIndex + HALF_FRAME_SIZE) % FULL_FRAME_SIZE;
+  // dacInIndex = (dacInIndex + HALF_FRAME_SIZE) % FULL_FRAME_SIZE;
+  // dacOutIndex = (dacOutIndex + HALF_FRAME_SIZE) % FULL_FRAME_SIZE;
 
-  adcInPtr = &adcData[adcInIndex];
-  adcOutPtr = &adcData[adcOutIndex];
-  dacInPtr = &dacData[dacInIndex];
-  dacOutPtr = &dacData[dacOutIndex];
+  // adcInPtr = &adcData[adcInIndex];
+  // adcOutPtr = &adcData[adcOutIndex];
+  // dacInPtr = &dacData[dacInIndex];
+  // dacOutPtr = &dacData[dacOutIndex];
 
-  adcDataReady = 1;
+  // adcDataReady = 1;
 }
 
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-  // inBufPtr = &data[0];
-  // outBufPtr = &data[0];
-  // adcDataReady = 1;
-}
-
-void HAL_DAC_ConvCpltCallbackCh1(DAC_HandleTypeDef *hdac) {
-  // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-}
-
-void HAL_DAC_ConvHalfCpltCallbackCh1(DAC_HandleTypeDef *hdac) {
-  // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-}
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-  // HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+  for (int i = 0; i < adcBuf.numBufs; i++) {
+    adcBuf.indices[i] = NEXT(adcBuf.indices[i], adcBuf.numBufs);
+    dacBuf.indices[i] = NEXT(dacBuf.indices[i], dacBuf.numBufs);
+  }
+  adcBuf.loaded = true;
 }
 
 void processData() {
-  // static float sample[HALF_FRAME_SIZE];
-  // if (adcDataReady == 1) {
+  // if (adcDataReady >= 1) {
   //   for (int i = 0; i < HALF_FRAME_SIZE; i++) {
-  //     sample[i] = INT16_TO_FLOAT * adcOutPtr[i];
+  //     dacInPtr[i] = adcOutPtr[i];
   //   }
   //   adcDataReady = 0;
-  //   samplesReady = 1;
   // }
-  // // arm_scale_f32();
-  // if (samplesReady == 1) {
-  //   for (int i = 0; i < HALF_FRAME_SIZE; i++) {
-  //     dacInPtr[i] = (uint16_t)(FLOAT_TO_INT16 * sample[i]);
-  //   }
-  //   samplesReady = 0;
-  // }
-  if (adcDataReady >= 1) {
-    for (int i = 0; i < HALF_FRAME_SIZE; i++) {
-      dacInPtr[i] = adcOutPtr[i];
+  if (adcBuf.loaded == true) {
+    for (int i = 0; i < dacBuf.bufSize; i++) {
+      int16_t temp = ACTIVE_BUF(adcBuf, 0, i);
+      LOAD_BUF(dacBuf, i) = temp;
     }
-    adcDataReady = 0;
+    adcBuf.loaded = false;
   }
-  
 }
 /* USER CODE END 0 */
 
@@ -198,8 +185,8 @@ int main(void)
   MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim8);
-  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcData, HALF_FRAME_SIZE);
-  HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1, (uint32_t*)dacData, HALF_FRAME_SIZE, DAC_ALIGN_12B_R);
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcData, 2 * HALF_FRAME_SIZE);
+  HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1, (uint32_t*)dacData, 2 * HALF_FRAME_SIZE, DAC_ALIGN_12B_R);
   /* USER CODE END 2 */
 
   /* Infinite loop */
