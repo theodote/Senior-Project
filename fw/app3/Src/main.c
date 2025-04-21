@@ -34,13 +34,37 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 typedef enum { false, true } bool;
-typedef enum { NORMAL, CIRCULAR } dmaType;
+
+#define NUM_PARAMETERS  5
+typedef enum {
+  DEFAULT = 0,
+  VOLUME = 0,
+  SUBTRACT_SCALE, 
+  MUTE_SCALE,
+  THRESHOLD,
+  HANGOVER    // coyote time
+} ParameterType;
+
+typedef struct {
+  const ParameterType type;
+  volatile float value;
+  const float min;
+  const float max;
+  const float step;
+} Parameter;
+
+typedef struct {
+  const ParameterType currParameter;
+  uint16_t prevCounter;
+  uint16_t currCounter;
+  Parameter parameters[NUM_PARAMETERS];
+} UserControl;
 
 #define MAX_BUFS  16  // I yield.
-typedef struct multiBuffer {
-  uint16_t numBufs;
-  uint16_t bufSize;
-  dmaType dmaMode;
+typedef struct {
+  const uint16_t numBufs;
+  const uint16_t bufSize;
+  const enum { NORMAL, CIRCULAR } dmaMode;
   volatile bool dmaDone;
   volatile bool finished;
   union {
@@ -61,18 +85,21 @@ typedef struct multiBuffer {
 #define ADC_MAX           4096
 #define ADC_MAX_F         4096.0f
 #define ADC_MID           2048
+#define CTR_MID           32768
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define NEXT(n,m)               ((n) == (m-1) ? 0 : (n+1))
-#define PREV(n,m)               ((n) == 0 ? (m-1) : (n-1))
+#define MIN(a,b)            ((a) < (b) ? a : b)       // MIND THE SIDE EFFECTS!
+#define MAX(a,b)            ((a) > (b) ? a : b)       // MIND THE SIDE EFFECTS!
+#define NEXT(n,m)           ((n) == (m-1) ? 0 : (n+1))
+#define PREV(n,m)           ((n) == 0 ? (m-1) : (n-1))
 
 #define ACTIVE_BUF(b, t, n) ((t(*)[b.bufSize]) (b.buffers))[b.activeInds[n]]
 #define DMA_BUF(b, t)       ((t(*)[b.bufSize]) (b.buffers))[b.dmaInd]
 
-#define INT16_TO_FLOAT(n)       (1.0f / ADC_MAX_F * (n - ADC_MID))
-#define FLOAT_TO_INT16(n)       ((int16_t)(ADC_MAX * n) + ADC_MID)
+#define INT16_TO_FLOAT(n)   (1.0f / ADC_MAX_F * (n - ADC_MID))
+#define FLOAT_TO_INT16(n)   ((int16_t)(ADC_MAX * n) + ADC_MID)
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -90,6 +117,14 @@ MultiBuffer outBuf = {2, HALF_FRAME_SIZE, NORMAL, false, false, {.indices = {0, 
 
 arm_rfft_fast_instance_f32 fft;
 float frequency[HALF_FRAME_SIZE] = {0};
+
+UserControl control = { DEFAULT, 0, 0, {
+  {VOLUME,          50.0, 0.0,   100.0, 5.0},
+  {SUBTRACT_SCALE,  4.0,  0.0,   10.0,  1.0},
+  {MUTE_SCALE,      0.03, 0.00,  0.10,  0.01},
+  {THRESHOLD,       3.0,  -10.0, 10.0,  1.0},
+  {HANGOVER,        30.0, 0.0,   50.0,  5.0}
+}};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -100,25 +135,54 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void MultiBufferRotate(MultiBuffer* mb) {
+static void MultiBufferRotate(MultiBuffer* mb) {
   for (int i = 0; i < mb->numBufs; i++) {
     mb->indices[i] = NEXT(mb->indices[i], mb->numBufs);
   }
 }
 
+static ParameterType UserControlSwitch(UserControl* control) {
+  ParameterType* type = &(control->currParameter);
+  switch (*type) {
+    case VOLUME:
+      *type = SUBTRACT_SCALE;
+      break;
+    case SUBTRACT_SCALE:
+      *type = MUTE_SCALE;
+      break;
+    case MUTE_SCALE:
+      *type = THRESHOLD;
+      break;
+    case THRESHOLD:
+      *type = HANGOVER;
+      break;
+    case HANGOVER:
+      *type = VOLUME;
+      break;
+    default:
+      *type = VOLUME;
+      break;
+  }
+  return *type;
+}
+
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
-  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+  UNUSED(hadc);
+  // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+  
   MultiBufferRotate(&adcBuf);
   adcBuf.dmaDone = true;
 }
 
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
-  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+  UNUSED(hadc);
+  // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+
   MultiBufferRotate(&adcBuf);
   adcBuf.dmaDone = true;
 }
 
-void processData() {
+static void processData() {
   if (adcBuf.dmaDone == true) {
     for (int i = 0; i < adcBuf.bufSize; i++) {
       DMA_BUF(inBuf, float)[i] = INT16_TO_FLOAT( ACTIVE_BUF(adcBuf, int16_t, 0)[i] );
