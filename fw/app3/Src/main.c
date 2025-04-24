@@ -37,26 +37,26 @@ typedef enum { false, true } bool;
 
 #define NUM_PARAMETERS  5
 typedef enum {
-  DEFAULT = 0,
   VOLUME = 0,
   SUBTRACT_SCALE, 
   MUTE_SCALE,
   THRESHOLD,
-  HANGOVER    // coyote time
+  HANGOVER    // coyote time?
 } ParameterType;
 
 typedef struct {
   const ParameterType type;
-  volatile float value;
+  float ref;
   const float min;
   const float max;
   const float step;
+  volatile float value;
 } Parameter;
 
 typedef struct {
-  const ParameterType currParameter;
-  uint16_t prevCounter;
-  uint16_t currCounter;
+  ParameterType curr;
+  // uint16_t prevCounter;
+  // uint16_t currCounter;
   Parameter parameters[NUM_PARAMETERS];
 } UserControl;
 
@@ -85,15 +85,16 @@ typedef struct {
 #define ADC_MAX           4096
 #define ADC_MAX_F         4096.0f
 #define ADC_MID           2048
-#define CTR_MID           32768
+#define CNT_MAX           65536
+#define CNT_MID           32768
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define MIN(a,b)            ((a) < (b) ? a : b)       // MIND THE SIDE EFFECTS!
-#define MAX(a,b)            ((a) > (b) ? a : b)       // MIND THE SIDE EFFECTS!
-#define NEXT(n,m)           ((n) == (m-1) ? 0 : (n+1))
-#define PREV(n,m)           ((n) == 0 ? (m-1) : (n-1))
+#define MIN(a,b)            ((a) < (b) ? a : b)         // MIND THE SIDE EFFECTS!
+#define MAX(a,b)            ((a) > (b) ? a : b)         // MIND THE SIDE EFFECTS!
+#define NEXT(n,m)           ((n) == (m-1) ? 0 : (n+1))  // MIND THE SIDE EFFECTS!
+#define PREV(n,m)           ((n) == 0 ? (m-1) : (n-1))  // MIND THE SIDE EFFECTS!
 
 #define ACTIVE_BUF(b, t, n) ((t(*)[b.bufSize]) (b.buffers))[b.activeInds[n]]
 #define DMA_BUF(b, t)       ((t(*)[b.bufSize]) (b.buffers))[b.dmaInd]
@@ -117,14 +118,16 @@ MultiBuffer outBuf = {2, HALF_FRAME_SIZE, NORMAL, false, false, {.indices = {0, 
 
 arm_rfft_fast_instance_f32 fft;
 float frequency[HALF_FRAME_SIZE] = {0};
+float temp[HALF_FRAME_SIZE] = {0};
 
-UserControl control = { DEFAULT, 0, 0, {
-  {VOLUME,          50.0, 0.0,   100.0, 5.0},
-  {SUBTRACT_SCALE,  4.0,  0.0,   10.0,  1.0},
-  {MUTE_SCALE,      0.03, 0.00,  0.10,  0.01},
-  {THRESHOLD,       3.0,  -10.0, 10.0,  1.0},
-  {HANGOVER,        30.0, 0.0,   50.0,  5.0}
+UserControl ctrl = { VOLUME, {
+  {VOLUME,          0.5,  0.0,   1.0,  0.05},
+  {SUBTRACT_SCALE,  4.0,  0.0,   10.0, 1.0},
+  {MUTE_SCALE,      0.03, 0.00,  0.10, 0.01},
+  {THRESHOLD,       3.0,  -10.0, 10.0, 1.0},
+  {HANGOVER,        30.0, 0.0,   50.0, 5.0}
 }};
+bool justPressed = false;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -135,36 +138,82 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+static int16_t clampInt16(int16_t value, int16_t min, int16_t max) {
+  if (value > max) return max;
+  if (value < min) return min;
+  return value;
+}
+
 static void MultiBufferRotate(MultiBuffer* mb) {
   for (int i = 0; i < mb->numBufs; i++) {
     mb->indices[i] = NEXT(mb->indices[i], mb->numBufs);
   }
 }
 
-static ParameterType UserControlSwitch(UserControl* control) {
-  ParameterType* type = &(control->currParameter);
-  switch (*type) {
-    case VOLUME:
-      *type = SUBTRACT_SCALE;
-      break;
-    case SUBTRACT_SCALE:
-      *type = MUTE_SCALE;
-      break;
-    case MUTE_SCALE:
-      *type = THRESHOLD;
-      break;
-    case THRESHOLD:
-      *type = HANGOVER;
-      break;
-    case HANGOVER:
-      *type = VOLUME;
-      break;
-    default:
-      *type = VOLUME;
-      break;
-  }
-  return *type;
+static float UserControlValue(const UserControl control, ParameterType type) {
+  return control.parameters[type].value;
 }
+
+static int16_t UserControlUpdate(Parameter* param) {
+  int16_t count = TIM2->CNT - CNT_MID;     // TODO: what if overflow? naaah
+  param->value = param->ref + count * param->step;
+  if (param->value > param->max) {        // TODO: clamp count. memory needed
+    param->value = param->max;
+  }
+  if (param->value < param->min) {
+    param->value = param->min;
+  }
+  return count;
+}
+
+static ParameterType UserControlSwitch(UserControl* control) {
+  ParameterType* type = &(control->curr);
+  UserControlUpdate(&(control->parameters[*type]));
+  control->parameters[*type].ref = control->parameters[*type].value;
+  TIM2->CNT = CNT_MID;
+  *type = NEXT(*(type), NUM_PARAMETERS);
+  return *type;
+  // switch (*type) {
+  //   case VOLUME:
+  //     *type = SUBTRACT_SCALE;
+  //     break;
+  //   case SUBTRACT_SCALE:
+  //     *type = MUTE_SCALE;
+  //     break;
+  //   case MUTE_SCALE:
+  //     *type = THRESHOLD;
+  //     break;
+  //   case THRESHOLD:
+  //     *type = HANGOVER;
+  //     break;
+  //   case HANGOVER:
+  //     *type = VOLUME;
+  //     break;
+  //   default:
+  //     *type = VOLUME;
+  //     break;
+  // }
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t pin) {
+  if (pin == SwitchBtn_Pin && justPressed == false) {
+    // HAL_TIM_Base_Start_IT(&htim10);
+    // justPressed = true;
+    UserControlSwitch(&ctrl);
+    HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+  } else {
+    __NOP();
+  }
+}
+
+// void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+//   if (htim == &htim10) {
+//     UserControlSwitch(&ctrl);
+//     HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+//     justPressed = false;
+//     HAL_TIM_Base_Stop_IT(&htim10);
+//   }
+// }
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
   UNUSED(hadc);
@@ -191,7 +240,8 @@ static void processData() {
     MultiBufferRotate(&inBuf);
     // memcpy(&(DMA_BUF(outBuf, float)), &(ACTIVE_BUF(inBuf, float, 0)), HALF_FRAME_SIZE * sizeof(float));
     arm_rfft_fast_f32(&fft, ACTIVE_BUF(inBuf, float, 0), frequency, 0);
-    arm_rfft_fast_f32(&fft, frequency, ACTIVE_BUF(outBuf, float, 0), 1);
+    arm_scale_f32(frequency, UserControlValue(ctrl, VOLUME), temp, HALF_FRAME_SIZE);
+    arm_rfft_fast_f32(&fft, temp, ACTIVE_BUF(outBuf, float, 0), 1);
 
     MultiBufferRotate(&outBuf);
 
@@ -238,12 +288,15 @@ int main(void)
   MX_USART2_UART_Init();
   MX_TIM2_Init();
   MX_TIM8_Init();
+  MX_TIM10_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim8);
+  HAL_TIM_Encoder_Start_IT(&htim2, TIM_CHANNEL_ALL);
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcData, 2 * HALF_FRAME_SIZE);
   HAL_DAC_Start_DMA(&hdac, DAC_CHANNEL_1, (uint32_t*)dacData, 2 * HALF_FRAME_SIZE, DAC_ALIGN_12B_R);
 
   arm_rfft_fast_init_f32(&fft, HALF_FRAME_SIZE);
+  TIM2->CNT = CNT_MID;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -253,6 +306,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    UserControlUpdate(&(ctrl.parameters[ctrl.curr]));
     processData();
   }
   /* USER CODE END 3 */
