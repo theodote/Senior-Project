@@ -29,31 +29,31 @@
 /* USER CODE BEGIN Includes */
 #include "arm_math.h"
 #include "math.h"
-// #include "dsp/transform_functions.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 typedef enum {false, true} bool;
 
-typedef enum {OLDEST, PREVIOUS, NEWEST} frame;
+typedef enum {OLD, PREV, NEW} processFrame;
+typedef enum {LEFT, RIGHT} rawFrame;
 
 #define NUM_PARAMETERS  5
 typedef enum {
   THRESHOLD = 0,
   VOLUME,
-  SUBTRACT_SCALE, 
-  ATTENUATE,
-  HANGOVER    // coyote time?
+  SUBTRACTIONS,
+  ATTENUATION,
+  COYOTE
 } ParameterType;
 
 typedef struct {
   const ParameterType type;
-  float ref;
-  const float min;
-  const float max;
-  const float step;
-  volatile float value;
+  float32_t ref;
+  const float32_t min;
+  const float32_t max;
+  const float32_t step;
+  volatile float32_t value;
 } Parameter;
 
 typedef struct {
@@ -63,13 +63,14 @@ typedef struct {
   Parameter parameters[NUM_PARAMETERS];
 } UserControl;
 
-#define MAX_BUFS  16  // I yield.
+
+
+#define MAX_BUFS  16
 typedef struct {
   const uint16_t numBufs;
   const uint16_t bufSize;
   const enum { NORMAL, CIRCULAR } dmaMode;
   volatile bool dmaDone;
-  volatile bool finished;
   union {
     struct {
       volatile uint16_t dmaInd;
@@ -107,9 +108,10 @@ typedef struct {
 #define NEXT(n,m)           ((n) == (m-1) ? 0 : (n+1))  // MIND THE SIDE EFFECTS!
 #define PREV(n,m)           ((n) == 0 ? (m-1) : (n-1))  // MIND THE SIDE EFFECTS!
 
-// TODO: separate macros. everything you do is float, come on
-#define READY_BUF(b, t, n)  ((t(*)[b.bufSize]) (b.buffers))[b.activeInds[n]]
-#define LOAD_BUF(b, t)      ((t(*)[b.bufSize]) (b.buffers))[b.dmaInd]
+#define READY_RAW_BUF(b, n) ((int16_t(*)[b.bufSize]) (b.buffers))[b.activeInds[n]]
+#define LOAD_RAW_BUF(b)     ((int16_t(*)[b.bufSize]) (b.buffers))[b.dmaInd]
+#define READY_BUF(b, n)     ((float32_t(*)[b.bufSize]) (b.buffers))[b.activeInds[n]]
+#define LOAD_BUF(b)         ((float32_t(*)[b.bufSize]) (b.buffers))[b.dmaInd]
 
 #define INT16_TO_FLOAT(n)   (1.0f / ADC_MAX_F * (n - ADC_MID))
 #define FLOAT_TO_INT16(n)   ((int16_t)(ADC_MAX * n) + ADC_MID)
@@ -120,41 +122,36 @@ typedef struct {
 /* USER CODE BEGIN PV */
 int16_t adcData [2 * HALF_FRAME_SIZE] = {0};
 int16_t dacData [2 * HALF_FRAME_SIZE] = {0};
-MultiBuffer adcBuf = {2, HALF_FRAME_SIZE, CIRCULAR, false, false, {.indices = {0, 1}}, (void*)adcData};
-MultiBuffer dacBuf = {2, HALF_FRAME_SIZE, CIRCULAR, false, false, {.indices = {0, 1}}, (void*)dacData};
+MultiBuffer adcBuf = {2, HALF_FRAME_SIZE, CIRCULAR, false, {.indices = {0, 1}}, (void*)adcData};
+MultiBuffer dacBuf = {2, HALF_FRAME_SIZE, CIRCULAR, false, {.indices = {0, 1}}, (void*)dacData};
 
-float inData    [3 * HALF_FRAME_SIZE] = {0.0};
-float outData   [3 * HALF_FRAME_SIZE] = {0.0};
-MultiBuffer inBuf = {3, HALF_FRAME_SIZE, NORMAL, false, false, {.indices = {0, 1, 2}}, (void*)inData};
-MultiBuffer outBuf = {3, HALF_FRAME_SIZE, NORMAL, false, false, {.indices = {0, 1, 2}}, (void*)outData};
+float32_t inData    [3 * HALF_FRAME_SIZE] = {0.0};
+float32_t outData   [3 * HALF_FRAME_SIZE] = {0.0};
+MultiBuffer inBuf =  {3, HALF_FRAME_SIZE, NORMAL, false, {.indices = {0, 1, 2}}, (void*)inData};
+MultiBuffer outBuf = {3, HALF_FRAME_SIZE, NORMAL, false, {.indices = {0, 1, 2}}, (void*)outData};
 
-float inFrames  [4 * FULL_FRAME_SIZE] = {0.0};
-float outFrames [4 * FULL_FRAME_SIZE] = {0.0};
-MultiBuffer inFrameBuf = {4, FULL_FRAME_SIZE, NORMAL, false, false, {.indices = {0, 1, 2, 3}}, (void*)inFrames};
-MultiBuffer outFrameBuf = {4, FULL_FRAME_SIZE, NORMAL, false, false, {.indices = {0, 1, 2, 3}}, (void*)outFrames};
+float32_t inFrames  [4 * FULL_FRAME_SIZE] = {0.0};
+float32_t outFrames [4 * FULL_FRAME_SIZE] = {0.0};
+MultiBuffer inFrameBuf =  {4, FULL_FRAME_SIZE, NORMAL, false, {.indices = {0, 1, 2, 3}}, (void*)inFrames};
+MultiBuffer outFrameBuf = {4, FULL_FRAME_SIZE, NORMAL, false, {.indices = {0, 1, 2, 3}}, (void*)outFrames};
 
-// float zero      [FULL_FRAME_SIZE] = {0.0};
-float hann      [FULL_FRAME_SIZE] = {0.0};
-float tempHalf1 [HALF_FRAME_SIZE] = {0.0};
-float tempHalf2 [HALF_FRAME_SIZE] = {0.0};
-float temp1     [FULL_FRAME_SIZE] = {0.0};
-float temp2     [FULL_FRAME_SIZE] = {0.0};
+float32_t hann      [FULL_FRAME_SIZE] = {0.0};
+float32_t tempHalf1 [HALF_FRAME_SIZE] = {0.0};
+float32_t tempHalf2 [HALF_FRAME_SIZE] = {0.0};
+float32_t temp1     [FULL_FRAME_SIZE] = {0.0};
+float32_t temp2     [FULL_FRAME_SIZE] = {0.0};
 
-float X         [4 * FULL_FRAME_SIZE] = {0.0};
-MultiBuffer XBuf = {4, FULL_FRAME_SIZE, NORMAL, false, false, {.indices = {0, 1, 2, 3}}, (void*)X};
-float Xmag      [4 * HALF_FRAME_SIZE] = {0.0};
-MultiBuffer XmagBuf = {4, HALF_FRAME_SIZE, NORMAL, false, false, {.indices = {0, 1, 2, 3}}, (void*)Xmag};
-// float Y         [4 * FULL_FRAME_SIZE] = {0.0};
-// MultiBuffer YBuf = {4, FULL_FRAME_SIZE, NORMAL, false, false, {.indices = {0, 1, 2, 3}}, (void*)Y};
-float Ymag      [4 * HALF_FRAME_SIZE] = {0.0};
-MultiBuffer YmagBuf = {4, HALF_FRAME_SIZE, NORMAL, false, false, {.indices = {0, 1, 2, 3}}, (void*)Ymag};
-// float Yph       [4 * HALF_FRAME_SIZE] = {0.0};
-// MultiBuffer YphBuf = {4, FULL_FRAME_SIZE, NORMAL, false, false, {.indices = {0, 1, 2, 3}}, (void*)Yph};
-float uMag      [HALF_FRAME_SIZE] = {0.0};
+float32_t X         [4 * FULL_FRAME_SIZE] = {0.0};
+MultiBuffer XBuf =    {4, FULL_FRAME_SIZE, NORMAL, false, {.indices = {0, 1, 2, 3}}, (void*)X};
+float32_t Xmag      [4 * HALF_FRAME_SIZE] = {0.0};
+MultiBuffer XmagBuf = {4, HALF_FRAME_SIZE, NORMAL, false, {.indices = {0, 1, 2, 3}}, (void*)Xmag};
+float32_t Smag      [4 * HALF_FRAME_SIZE] = {0.0};
+MultiBuffer SmagBuf = {4, HALF_FRAME_SIZE, NORMAL, false, {.indices = {0, 1, 2, 3}}, (void*)Smag};
+float32_t uMag      [HALF_FRAME_SIZE] = {0.0};
 
-float meanRatio = 0.0;
-float logMeanRatio = 0.0;
-float coolDown = 0.0;
+float32_t meanRatio = 0.0;
+float32_t logMeanRatio = 0.0;
+float32_t coolDown = 0.0;
 bool speech = false;
 bool forceuMag = true;
 bool mute = false;
@@ -164,11 +161,12 @@ arm_rfft_fast_instance_f32 fft;
 
 UserControl ctrl = {THRESHOLD, 0, {
   // {THRESHOLD,       -15.0,  -25.0, -5.0, 1.0,  -15.0},
-  {THRESHOLD,       3.0,   0.0,   20.0, 1.0,  3.0},
+  // {THRESHOLD,       3.0,   0.0,   20.0, 1.0,  3.0},
+  {THRESHOLD,       -20.0,   -25.0,   0.0, 1.0,  -20.0},
   {VOLUME,          0.9,    0.0,   1.0,  0.05, 0.9},
-  {SUBTRACT_SCALE,  2.0,    0.0,   10.0, 1.0,  2.0},
-  {ATTENUATE,      0.03,   0.00,  0.10, 0.01, 0.03},
-  {HANGOVER,        30.0,   0.0,   50.0, 5.0,  30.0}
+  {SUBTRACTIONS,  2.0,    0.0,   10.0, 1.0,  2.0},
+  {ATTENUATION,      0.03,   0.00,  0.10, 0.01, 0.03},
+  {COYOTE,         30.0,   0.0,   50.0, 5.0,  30.0}
 }};
 bool justPressed = false;     // protect timer from improper restarting
 uint8_t clickCount = 0;
@@ -207,7 +205,7 @@ static void MultiBufferRotate(MultiBuffer* mb) {
   }
 }
 
-static float UserControlValue(const UserControl* control, ParameterType type) {
+static float32_t UserControlValue(const UserControl* control, ParameterType type) {
   return control->parameters[type].value;
 }
 
@@ -216,7 +214,7 @@ static int16_t UserControlUpdate(UserControl* control) {
   Parameter* param = &(control->parameters[*type]);
 
   int32_t count = TIM2->CNT - CNT_MID;
-  float newValue = param->ref + count * param->step;
+  float32_t newValue = param->ref + count * param->step;
 
   if (newValue > param->max || newValue < param->min) {
     // TIM2->CNT = control->prevCount;
@@ -328,60 +326,81 @@ void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
 static void processData() {
   // load from ADC
   for (int i = 0; i < adcBuf.bufSize; i++) {
-    LOAD_BUF(inBuf, float)[i] = INT16_TO_FLOAT( READY_BUF(adcBuf, int16_t, 0)[i] );
+    LOAD_BUF(inBuf)[i] = INT16_TO_FLOAT( READY_RAW_BUF(adcBuf, 0)[i] );
   }
   adcBuf.dmaDone = false;
   MultiBufferRotate(&inBuf);
   
-  if (mute == true) {
-    memset(LOAD_BUF(outBuf, float), 0, FLOAT_HALF_FRAME);
+  if (mute) {
+    memset(LOAD_BUF(outBuf), 0, FLOAT_HALF_FRAME);
     MultiBufferRotate(&outBuf);
-  } else if (bypass == true) {
-    memcpy(LOAD_BUF(outBuf, float), READY_BUF(inBuf, float, 1), FLOAT_HALF_FRAME);
+  } else if (bypass) {
+    memcpy(LOAD_BUF(outBuf), READY_BUF(inBuf, 1), FLOAT_HALF_FRAME);
     MultiBufferRotate(&outBuf);
   } else {
-    // copy and window. twice as fast!
+
+    // copy twice as fast!
     HAL_DMA_Start(&hdma_memtomem_dma2_stream1,
-      (uint32_t)(READY_BUF(inBuf, float, 0)),
+      (uint32_t)(READY_BUF(inBuf, LEFT)),
       (uint32_t)(&temp1[0]),
-      HALF_FRAME_SIZE * sizeof(float)
+      FLOAT_HALF_FRAME
     );
     HAL_DMA_Start(&hdma_memtomem_dma2_stream2,
-      (uint32_t)(READY_BUF(inBuf, float, 1)),
+      (uint32_t)(READY_BUF(inBuf, RIGHT)),
       (uint32_t)(&temp1[HALF_FRAME_SIZE]),
-      HALF_FRAME_SIZE * sizeof(float)
+      FLOAT_HALF_FRAME
     );
     HAL_StatusTypeDef done1 = HAL_BUSY, done2 = HAL_BUSY;
     do {
       done1 = HAL_DMA_PollForTransfer(&hdma_memtomem_dma2_stream1, HAL_DMA_FULL_TRANSFER, 100);
       done2 = HAL_DMA_PollForTransfer(&hdma_memtomem_dma2_stream2, HAL_DMA_FULL_TRANSFER, 100);
     } while ((done1 != HAL_OK) && (done2 != HAL_OK));
-    arm_mult_f32(temp1, hann, &(LOAD_BUF(inFrameBuf, float)[0]), FULL_FRAME_SIZE);
+    // apply window
+    arm_mult_f32(temp1, hann, LOAD_BUF(inFrameBuf), FULL_FRAME_SIZE);
     MultiBufferRotate(&inFrameBuf);
 
-    // fft, mag, phase
-    memcpy(temp1, &(READY_BUF(inFrameBuf, float, 2)[0]), FULL_FRAME_SIZE * sizeof(float));
+    // fft, mag
+    memcpy(temp1, READY_BUF(inFrameBuf, NEW), FLOAT_FULL_FRAME);
     arm_rfft_fast_f32(&fft,
       temp1,
-      &(LOAD_BUF(XBuf, float)[0]),
+      LOAD_BUF(XBuf),
       false
     );
     MultiBufferRotate(&XBuf);
-    arm_cmplx_mag_f32(&(READY_BUF(XBuf, float, 2)[0]), &(LOAD_BUF(XmagBuf, float)[0]), HALF_FRAME_SIZE);
+    arm_cmplx_mag_f32(READY_BUF(XBuf, NEW), LOAD_BUF(XmagBuf), HALF_FRAME_SIZE);
     MultiBufferRotate(&XmagBuf);
+    
+    // spectral subtraction
+    arm_scale_f32(uMag, UserControlValue(&ctrl, SUBTRACTIONS), tempHalf1, HALF_FRAME_SIZE);
+    arm_sub_f32(
+      READY_BUF(XmagBuf, NEW),
+      tempHalf1,
+      tempHalf2,
+      HALF_FRAME_SIZE
+    );
+    // half-wave retification
+    arm_clip_f32(
+      tempHalf2,
+      LOAD_BUF(SmagBuf),
+      0.0f,
+      MAXFLOAT / 2,
+      HALF_FRAME_SIZE
+    );
+    MultiBufferRotate(&SmagBuf);
 
-    // voice activity detection
+    // average spectral SNR
     for (int i = 0; i < HALF_FRAME_SIZE; i++) {
-      tempHalf1[i] = READY_BUF(XmagBuf, float, 2)[i] / uMag[i];
-      // CMSIS team said you cannot accelerate fp division
+      tempHalf1[i] = READY_BUF(SmagBuf, NEW)[i] / uMag[i];
+      // CMSIS team said fp division cannot be accelerated
     }
     arm_mean_f32(tempHalf1, HALF_FRAME_SIZE, &meanRatio);
     logMeanRatio = 20 * log10f(meanRatio);
-    float threshold = UserControlValue(&ctrl, THRESHOLD);
-
+    
+    // voice activity detection & coyote time
+    float32_t threshold = UserControlValue(&ctrl, THRESHOLD);
     if (logMeanRatio >= threshold) {
       speech = true;
-      coolDown = UserControlValue(&ctrl, HANGOVER);
+      coolDown = UserControlValue(&ctrl, COYOTE);
       HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
     } else {
       if (coolDown > 0.0) {
@@ -394,6 +413,24 @@ static void processData() {
       }
     }
 
+    // attenuate during non-speech
+    if (speech == false) {
+      arm_scale_f32(
+        READY_BUF(SmagBuf, NEW),
+        UserControlValue(&ctrl, ATTENUATION),
+        LOAD_BUF(SmagBuf),
+        HALF_FRAME_SIZE
+      );
+    } else {  // apply volume
+      arm_scale_f32(
+        READY_BUF(SmagBuf, NEW),
+        UserControlValue(&ctrl, VOLUME),
+        LOAD_BUF(SmagBuf),
+        HALF_FRAME_SIZE
+      );
+    }
+    MultiBufferRotate(&SmagBuf);
+
     // update noise spectrum. average
     if (forceuMag == true) {
       speech = false;
@@ -401,62 +438,28 @@ static void processData() {
     }
     if (speech == false) {
       arm_add_f32(
-        &(READY_BUF(XmagBuf, float, 2)[0]),
-        &(READY_BUF(XmagBuf, float, 1)[0]),
+        READY_BUF(XmagBuf, NEW),
+        READY_BUF(XmagBuf, PREV),
         tempHalf1,
         HALF_FRAME_SIZE
       );
       arm_add_f32(
         tempHalf1,
-        &(READY_BUF(XmagBuf, float, 0)[0]),
+        READY_BUF(XmagBuf, OLD),
         tempHalf2,
         HALF_FRAME_SIZE
       );
       arm_scale_f32(tempHalf2, (1.0f / 3.0f), uMag, HALF_FRAME_SIZE);
     }
-    
-    // spectral subtraction
-    arm_scale_f32(uMag, UserControlValue(&ctrl, SUBTRACT_SCALE), tempHalf1, HALF_FRAME_SIZE);
-    arm_sub_f32(
-      &(READY_BUF(XmagBuf, float, 2)[0]),
-      tempHalf1,
-      tempHalf2,
-      HALF_FRAME_SIZE
-    );
-    // half-wave retification
-    arm_clip_f32(
-      tempHalf2,
-      &(LOAD_BUF(YmagBuf, float)[0]),
-      0.0f,
-      MAXFLOAT / 2,
-      HALF_FRAME_SIZE
-    );
-    MultiBufferRotate(&YmagBuf);
-    if (speech == false) {  // attenuate during non-speech
-      arm_scale_f32(
-        &(READY_BUF(YmagBuf, float, 2)[0]),
-        UserControlValue(&ctrl, ATTENUATE),
-        &(LOAD_BUF(YmagBuf, float)[0]),
-        HALF_FRAME_SIZE
-      );
-    } else {                // apply volume
-      arm_scale_f32(
-        &(READY_BUF(YmagBuf, float, 2)[0]),
-        UserControlValue(&ctrl, VOLUME),
-        &(LOAD_BUF(YmagBuf, float)[0]),
-        HALF_FRAME_SIZE
-      );
-    }
-    MultiBufferRotate(&YmagBuf);
 
     // polar to rect
     for (int i = 0; i < HALF_FRAME_SIZE; i++) {
-      temp1[i] = READY_BUF(YmagBuf, float, 2)[i] / READY_BUF(XmagBuf, float, 2)[i];
+      temp1[i] = READY_BUF(SmagBuf, NEW)[i] / READY_BUF(XmagBuf, NEW)[i];
     }
     for (int i = 0; i < HALF_FRAME_SIZE; i++) {
-      if (READY_BUF(XmagBuf, float, 2)[i] != 0.0f) {
-        temp2[2*i  ] = temp1[i] * READY_BUF(XBuf, float, 2)[2*i];   // cos
-        temp2[2*i+1] = temp1[i] * READY_BUF(XBuf, float, 2)[2*i+1]; // sin
+      if (READY_BUF(XmagBuf, NEW)[i] != 0.0f) {
+        temp2[2*i  ] = temp1[i] * READY_BUF(XBuf, NEW)[2*i];   // cos
+        temp2[2*i+1] = temp1[i] * READY_BUF(XBuf, NEW)[2*i+1]; // sin
       } else {  // ideally should never happen with floats
         temp2[2*i  ] = 0.0f;
         temp2[2*i+1] = 0.0f;
@@ -464,14 +467,14 @@ static void processData() {
     }
 
     // ifft
-    arm_rfft_fast_f32(&fft, temp2, LOAD_BUF(outFrameBuf, float), true);
+    arm_rfft_fast_f32(&fft, temp2, LOAD_BUF(outFrameBuf), true);
     MultiBufferRotate(&outFrameBuf);
 
     // reconstruct, 50% overlap
     arm_add_f32(
-      &(READY_BUF(outFrameBuf, float, 1)[0]),
-      &(READY_BUF(outFrameBuf, float, 0)[HALF_FRAME_SIZE]),
-      &(LOAD_BUF(outBuf, float)[0]),
+      &(READY_BUF(outFrameBuf, RIGHT)[0]),
+      &(READY_BUF(outFrameBuf, LEFT)[HALF_FRAME_SIZE]),
+      LOAD_BUF(outBuf),
       HALF_FRAME_SIZE
     );
     MultiBufferRotate(&outBuf);
@@ -479,58 +482,13 @@ static void processData() {
   
   // push to DAC
   for (int i = 0; i < adcBuf.bufSize; i++) {
-    LOAD_BUF(dacBuf, int16_t)[i] = clampInt16(
-      FLOAT_TO_INT16( READY_BUF(outBuf, float, 0)[i] ),
+    LOAD_RAW_BUF(dacBuf)[i] = clampInt16(
+      FLOAT_TO_INT16( READY_BUF(outBuf, 0)[i] ),
       0,
       ADC_MAX
     );
-    // LOAD_BUF(dacBuf, int16_t)[i] = FLOAT_TO_INT16(READY_BUF(inBuf, float, 0)[i]);
-    // LOAD_BUF(dacBuf, int16_t)[i] = READY_BUF(adcBuf, int16_t, 1)[i];
   }
   MultiBufferRotate(&dacBuf);
-
-  // // DONT FORGET TO REMOVE THIS!!!
-  // arm_add_f32(
-  //   &(READY_BUF(inFrameBuf, float, 1)[0]),
-  //   &(READY_BUF(inFrameBuf, float, 0)[HALF_FRAME_SIZE]),
-  //   &(LOAD_BUF(outBuf, float)[0]),
-  //   HALF_FRAME_SIZE
-  // );
-  // MultiBufferRotate(&outBuf);
-  
-  // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-  
-  // memcpy(&(DMA_BUF(outFrameBuf, float)), &(ACTIVE_BUF(inFrameBuf, float, 0)), FULL_FRAME_SIZE * sizeof(float));
-  // arm_rfft_fast_f32(&fft, ACTIVE_BUF(inBuf, float, 0), frequency, 0);
-  // arm_scale_f32(frequency, UserControlValue(&ctrl, VOLUME), tempHalf1, HALF_FRAME_SIZE);
-  // arm_rfft_fast_f32(&fft, tempHalf1, ACTIVE_BUF(outBuf, float, 0), 1);
-
-  // memcpy(&tempHalf1, &(ACTIVE_BUF(inFrameBuf, float, 1)[0]), HALF_FRAME_SIZE * sizeof(float));
-  // for (int i = 0; i < HALF_FRAME_SIZE; i++) {
-  //   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-
-  //   arm_atan2_f32(
-  //     READY_BUF(XBuf, float, 2)[2*i+1],
-  //     READY_BUF(XBuf, float, 2)[2*i],
-  //     &(LOAD_BUF(XphBuf, float)[i])
-  //   );
-  //   // LOAD_BUF(XphBuf, float)[i] = atan2(
-  //   //   READY_BUF(XBuf, float, 2)[2*i+1],
-  //   //   READY_BUF(XBuf, float, 2)[2*i]
-  //   // );
-    
-  //   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-  // }
-  // MultiBufferRotate(&XphBuf);
-
-  // get something in uMag on the first 
-  // if (firstSkip) {
-  //   // memset(uMag, 0x40000000, HALF_FRAME_SIZE * sizeof(float)); // 2.0f = 0x40000000
-  //   for (int i = 0; i < HALF_FRAME_SIZE; i++) {
-  //     uMag[i] = 1.0f;
-  //   }
-  //   firstSkip = false;
-  // }  
 }
 
 
