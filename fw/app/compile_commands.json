@@ -1,0 +1,206 @@
+[
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o CMakeFiles\\app3.dir\\Src\\main.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\main.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\main.c",
+  "output": "CMakeFiles\\app3.dir\\Src\\main.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o CMakeFiles\\app3.dir\\Src\\gpio.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\gpio.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\gpio.c",
+  "output": "CMakeFiles\\app3.dir\\Src\\gpio.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o CMakeFiles\\app3.dir\\Src\\adc.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\adc.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\adc.c",
+  "output": "CMakeFiles\\app3.dir\\Src\\adc.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o CMakeFiles\\app3.dir\\Src\\dac.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\dac.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\dac.c",
+  "output": "CMakeFiles\\app3.dir\\Src\\dac.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o CMakeFiles\\app3.dir\\Src\\dma.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\dma.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\dma.c",
+  "output": "CMakeFiles\\app3.dir\\Src\\dma.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o CMakeFiles\\app3.dir\\Src\\tim.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\tim.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\tim.c",
+  "output": "CMakeFiles\\app3.dir\\Src\\tim.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o CMakeFiles\\app3.dir\\Src\\usart.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\usart.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\usart.c",
+  "output": "CMakeFiles\\app3.dir\\Src\\usart.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o CMakeFiles\\app3.dir\\Src\\stm32f4xx_it.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\stm32f4xx_it.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\stm32f4xx_it.c",
+  "output": "CMakeFiles\\app3.dir\\Src\\stm32f4xx_it.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o CMakeFiles\\app3.dir\\Src\\stm32f4xx_hal_msp.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\stm32f4xx_hal_msp.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\stm32f4xx_hal_msp.c",
+  "output": "CMakeFiles\\app3.dir\\Src\\stm32f4xx_hal_msp.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o CMakeFiles\\app3.dir\\Src\\sysmem.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\sysmem.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\sysmem.c",
+  "output": "CMakeFiles\\app3.dir\\Src\\sysmem.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o CMakeFiles\\app3.dir\\Src\\syscalls.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\syscalls.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\syscalls.c",
+  "output": "CMakeFiles\\app3.dir\\Src\\syscalls.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -x assembler-with-cpp -MMD -MP -g -o CMakeFiles\\app3.dir\\startup_stm32f446xx.s.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\startup_stm32f446xx.s",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\startup_stm32f446xx.s",
+  "output": "CMakeFiles\\app3.dir\\startup_stm32f446xx.s.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Src\\system_stm32f4xx.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\system_stm32f4xx.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Src\\system_stm32f4xx.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Src\\system_stm32f4xx.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc_ex.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc_ex.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc_ex.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc_ex.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_ll_adc.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_ll_adc.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_ll_adc.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_ll_adc.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc_ex.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc_ex.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc_ex.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc_ex.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ex.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ex.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ex.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ex.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ramfunc.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ramfunc.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ramfunc.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ramfunc.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_gpio.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_gpio.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_gpio.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_gpio.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma_ex.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma_ex.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma_ex.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma_ex.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr_ex.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr_ex.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr_ex.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr_ex.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_cortex.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_cortex.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_cortex.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_cortex.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_exti.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_exti.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_exti.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_exti.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dac.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dac.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dac.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dac.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dac_ex.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dac_ex.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dac_ex.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dac_ex.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim_ex.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim_ex.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim_ex.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim_ex.c.obj"
+},
+{
+  "directory": "C:/Users/b.reshetnikov/Documents/temp/app3",
+  "command": "C:\\ST\\STM32CubeCLT_1.18.0\\GNU-tools-for-STM32\\bin\\arm-none-eabi-gcc.exe -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -IC:/Users/b.reshetnikov/Documents/temp/app3/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Device/ST/STM32F4xx/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Drivers/CMSIS/Include -IC:/Users/b.reshetnikov/Documents/temp/app3/Middlewares/ST/ARM/DSP/Inc  -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard  -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections -O0 -g3 -std=gnu11 -o cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_uart.c.obj -c C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_uart.c",
+  "file": "C:\\Users\\b.reshetnikov\\Documents\\temp\\app3\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_uart.c",
+  "output": "cmake\\stm32cubemx\\CMakeFiles\\STM32_Drivers.dir\\__\\__\\Drivers\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_uart.c.obj"
+}
+]
