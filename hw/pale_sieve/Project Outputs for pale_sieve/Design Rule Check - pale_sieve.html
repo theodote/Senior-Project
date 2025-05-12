@@ -1,0 +1,689 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 9em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\theodote\Documents\Altium\AD24\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">12/05/2025</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">13:03:05</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:00</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc" class="file"><acronym title="C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc">C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">111</td></tr>
+</table>
+</td>
+</table><a name="IDRWRDUX5N02CTOHAUMLWC2HJ2HJIEAYLLY0WSMOEJP5PJS50TMAOI"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDX5OJCD3XHNKELCEZU0YKYWFE4KTJV5J1OPG245DZKCTSTYQX4TFH">Clearance Constraint (Gap=0.22mm) (IsVia),(Not IsVia)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDJ1UMR2G3GMVKINYSFHCSOAQ2UO3KQVJ5HZREVBE3PFD3S5VB1DMP">Clearance Constraint (Gap=0.1mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDA2GSIXHGWL5PF2TNXBRVEIR24EC2GVLSYELURBK2YWELPY0MWCXG">Clearance Constraint (Gap=0.32mm) (PadIsPlated and Hole),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDSQV2CAEQCDQ3DOMS41SKJPG3QPJAFCVXYJIO4GDAKOPE2VXYWNVN">Clearance Constraint (Gap=0.2mm) (IsBoardOutline),(IsTrack)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDIQVCHZZKIDYQOMVG4MI3KQL2QJXMNMJQDT2KI0FVRLOZ4Y2QL3IE">Clearance Constraint (Gap=0.22mm) (Hole and Not PadIsPlated),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDXWT3QAOFKDLBHM5DIAFRRM2GHGOCFQ4QFRC0M5J0BI2MH2B0VVOB">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID1M5E02KAVY0YJKXOXTVGSU2GUUGISZ34HAEJN2YSGALYSZUX2C">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">111</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDHZ3NXGOUZIHOPHG11PGWWKJZ3EAKYRJ3KAH4BDJUQPBAIETPGZ3J">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID31333JW3LH1JINHWN5JUYDW00EXI2KRBYNCOPCLFJOT0VMWYDDYH">Width Constraint (Min=0.1mm) (Max=0.5mm) (Preferred=0.25mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDFT430TJUFRSHMVRT2F1UY44CXM2H4ZQ33HM0NWKLJUYA4XXAKAND">Routing Topology Rule(Topology=Shortest) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID5HEPMIMNBSCKL2ILYCX1RSKYJD0HQMR03FDRQYE4SRTUAI4Z1LMM">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDF1SLK5US4QMSHWVTXF1WOM0D1HT0ZLALCWQ5OR4DYBYGIN0FXHK">Minimum Annular Ring (Minimum=0.2mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID4OPQS50M40GAHTJH1YNIKLN4KAJIMNJ5E3VFDDTM5NUITI5RSXJ">Hole Size Constraint (Min=0.16mm) (Max=6.2mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDEWABU2XG0GXCIN3G3HLNQV1XGGGDIDUU5CPNPOMVHYGAI21VDZBB">Hole To Hole Clearance (Gap=0.21mm) (IsVia),(IsVia)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID1SSL3IVIZZTQLXLTKKTWSV5RPDFTVZHM4JXADOYFUIIHULC1MPO">Hole To Hole Clearance (Gap=0.46mm) (Not IsVia),(Not IsVia)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDLENAXXSCA0OIPCE3U0ERGHSVZO3RT13XNIITOCNKRG0RTJAREKUH">Minimum Solder Mask Sliver (Gap=0.125mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDE0P3NTXUWDGPM4RZBMOSO1SWND4S21DLHTUPHOE4XVHULRPVEORI">Silk To Solder Mask (Clearance=0.16mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDGOLUEKZ0S0CBJO1VEVCMDIFOEPE2V1NLVRUKDAC23XLN0VHWAPPJ">Silk to Silk (Clearance=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID00FP0D1QFFG4FU3GI5MXYAEFACTPR1XBL5M4CTNNH2W0ZE0ROGAM">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAWDC2BY2ID0FORS2Y4NRE0XXBFW224DZ3PTPENPPMAU4HERGOIWO">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">111</td>
+</tr>
+</table><br><a name="ID1M5E02KAVY0YJKXOXTVGSU2GUUGISZ34HAEJN2YSGALYSZUX2C"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2322.244mil|Location2.X=2507.48mil|Location1.Y=2381.299mil|Location2.Y=2724.016mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2322.244mil|Location2.X=2507.48mil|Location1.Y=2381.299mil|Location2.Y=2724.016mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C11-1(9.6mm,11.25mm) on Top And Pad C10-1(13.25mm,18.75mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2472.835mil|Location2.X=2704.331mil|Location1.Y=2581.102mil|Location2.Y=2724.016mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2472.835mil|Location2.X=2704.331mil|Location1.Y=2581.102mil|Location2.Y=2724.016mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C10-1(13.25mm,18.75mm) on Top And Pad C13-1(18.25mm,16mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2394.094mil|Location2.X=2507.48mil|Location1.Y=2689.37mil|Location2.Y=2826.378mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2394.094mil|Location2.X=2507.48mil|Location1.Y=2689.37mil|Location2.Y=2826.378mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad VR3-1(11.5mm,21.1mm) on Top And Pad C10-1(13.25mm,18.75mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2387.205mil|Location2.X=2507.48mil|Location1.Y=2630.315mil|Location2.Y=2664.961mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2387.205mil|Location2.X=2507.48mil|Location1.Y=2630.315mil|Location2.Y=2664.961mil|Absolute=True">Un-Routed Net Constraint: Net OUTPUT_PWR Between Pad U2-8(11.45mm,17.155mm) on Top And Pad C10-2(13.25mm,17.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3525.984mil|Location2.X=3571.063mil|Location1.Y=3102.756mil|Location2.Y=3242.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3525.984mil|Location2.X=3571.063mil|Location1.Y=3102.756mil|Location2.Y=3242.716mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_1 Between Pad C1-1(40mm,29.25mm) on Top And Pad U1-2(40.365mm,31.55mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3492.52mil|Location2.X=3560.63mil|Location1.Y=2787.795mil|Location2.Y=3137.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3492.52mil|Location2.X=3560.63mil|Location1.Y=2787.795mil|Location2.Y=3137.401mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_1 Between Pad VR1-3(39.4mm,21.5mm) on Top And Pad C1-1(40mm,29.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2174.606mil|Location2.X=2370.669mil|Location1.Y=2381.299mil|Location2.Y=2507.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2174.606mil|Location2.X=2370.669mil|Location1.Y=2381.299mil|Location2.Y=2507.284mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U2-4(6.05mm,13.345mm) on Top And Pad C11-1(9.6mm,11.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2393.11mil|Location2.X=2526.181mil|Location1.Y=2381.299mil|Location2.Y=2441.535mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2393.11mil|Location2.X=2526.181mil|Location1.Y=2381.299mil|Location2.Y=2441.535mil|Absolute=True">Un-Routed Net Constraint: Net NetC11_2 Between Pad C11-2(11.4mm,11.25mm) on Top And Pad R7-2(13.75mm,11.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2387.205mil|Location2.X=2451.378mil|Location1.Y=2381.299mil|Location2.Y=2507.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2387.205mil|Location2.X=2451.378mil|Location1.Y=2381.299mil|Location2.Y=2507.284mil|Absolute=True">Un-Routed Net Constraint: Net NetC11_2 Between Pad C11-2(11.4mm,11.25mm) on Top And Pad U2-5(11.45mm,13.345mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3381.89mil|Location2.X=3501.575mil|Location1.Y=3096.457mil|Location2.Y=3143.701mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3381.89mil|Location2.X=3501.575mil|Location1.Y=3096.457mil|Location2.Y=3143.701mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad TP3-1(36.5mm,29.25mm) on Multi-Layer And Pad C1-2(38.5mm,29.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3466.929mil|Location2.X=3521.063mil|Location1.Y=3102.756mil|Location2.Y=3242.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3466.929mil|Location2.X=3521.063mil|Location1.Y=3102.756mil|Location2.Y=3242.716mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad C1-2(38.5mm,29.25mm) on Top And Pad U1-1(39.095mm,31.55mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3433.465mil|Location2.X=3515.354mil|Location1.Y=3004.331mil|Location2.Y=3137.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3433.465mil|Location2.X=3515.354mil|Location1.Y=3004.331mil|Location2.Y=3137.401mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad VR1-2(38.25mm,27mm) on Top And Pad C1-2(38.5mm,29.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2994.488mil|Location2.X=3100.394mil|Location1.Y=3218.504mil|Location2.Y=3353.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2994.488mil|Location2.X=3100.394mil|Location1.Y=3218.504mil|Location2.Y=3353.937mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C12-1(26.5mm,34.75mm) on Top And Pad ENC1-2(28mm,32.5mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2994.488mil|Location2.X=3149.213mil|Location1.Y=3319.291mil|Location2.Y=3928.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2994.488mil|Location2.X=3149.213mil|Location1.Y=3319.291mil|Location2.Y=3928.74mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C12-1(26.5mm,34.75mm) on Top And Pad J2-4(28.95mm,49mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2916.732mil|Location2.X=3029.134mil|Location1.Y=3374.41mil|Location2.Y=3416.929mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2916.732mil|Location2.X=3029.134mil|Location1.Y=3374.41mil|Location2.Y=3416.929mil|Absolute=True">Un-Routed Net Constraint: Net NetC12_2 Between Pad R12-2(24.5mm,36.25mm) on Top And Pad C12-2(26.5mm,36.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2994.488mil|Location2.X=3104.331mil|Location1.Y=3372.047mil|Location2.Y=3419.291mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2994.488mil|Location2.X=3104.331mil|Location1.Y=3372.047mil|Location2.Y=3419.291mil|Absolute=True">Un-Routed Net Constraint: Net NetC12_2 Between Pad C12-2(26.5mm,36.25mm) on Top And Pad TP15-1(28.25mm,36.25mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2640.157mil|Location2.X=2704.331mil|Location1.Y=2207.087mil|Location2.Y=2615.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2640.157mil|Location2.X=2704.331mil|Location1.Y=2207.087mil|Location2.Y=2615.748mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C2-1(17.5mm,6.5mm) on Top And Pad C13-1(18.25mm,16mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2669.685mil|Location2.X=3001.968mil|Location1.Y=2581.102mil|Location2.Y=2706.693mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2669.685mil|Location2.X=3001.968mil|Location1.Y=2581.102mil|Location2.Y=2706.693mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C13-1(18.25mm,16mm) on Top And Pad ENC1-5(25.5mm,18mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2728.74mil|Location2.X=2763.386mil|Location1.Y=2498.425mil|Location2.Y=2615.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2728.74mil|Location2.X=2763.386mil|Location1.Y=2498.425mil|Location2.Y=2615.748mil|Absolute=True">Un-Routed Net Constraint: Net NetC13_2 Between Pad R11-1(19.75mm,14mm) on Top And Pad C13-2(19.75mm,16mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2653.543mil|Location2.X=2763.386mil|Location1.Y=2581.102mil|Location2.Y=2690.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2653.543mil|Location2.X=2763.386mil|Location1.Y=2581.102mil|Location2.Y=2690.945mil|Absolute=True">Un-Routed Net Constraint: Net NetC13_2 Between Pad TP12-1(18mm,17.75mm) on Multi-Layer And Pad C13-2(19.75mm,16mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2942.913mil|Location2.X=3275.197mil|Location1.Y=2581.102mil|Location2.Y=2706.693mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2942.913mil|Location2.X=3275.197mil|Location1.Y=2581.102mil|Location2.Y=2706.693mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad ENC1-5(25.5mm,18mm) on Multi-Layer And Pad C14-1(32.75mm,16mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3240.551mil|Location2.X=3672.834mil|Location1.Y=2581.102mil|Location2.Y=2842.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3240.551mil|Location2.X=3672.834mil|Location1.Y=2581.102mil|Location2.Y=2842.126mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C14-1(32.75mm,16mm) on Top And Pad VR2-1(42.6mm,21.5mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3181.496mil|Location2.X=3216.142mil|Location1.Y=2498.425mil|Location2.Y=2615.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3181.496mil|Location2.X=3216.142mil|Location1.Y=2498.425mil|Location2.Y=2615.748mil|Absolute=True">Un-Routed Net Constraint: Net NetC14_2 Between Pad R13-1(31.25mm,14mm) on Top And Pad C14-2(31.25mm,16mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3181.496mil|Location2.X=3291.338mil|Location1.Y=2581.102mil|Location2.Y=2690.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3181.496mil|Location2.X=3291.338mil|Location1.Y=2581.102mil|Location2.Y=2690.945mil|Absolute=True">Un-Routed Net Constraint: Net NetC14_2 Between Pad C14-2(31.25mm,16mm) on Top And Pad TP16-1(33mm,17.75mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2640.157mil|Location2.X=2877.559mil|Location1.Y=2016.142mil|Location2.Y=2241.732mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2640.157mil|Location2.X=2877.559mil|Location1.Y=2016.142mil|Location2.Y=2241.732mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C2-1(17.5mm,6.5mm) on Top And Pad J1-4(22.05mm,2mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2640.157mil|Location2.X=2747.638mil|Location1.Y=2148.032mil|Location2.Y=2182.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2640.157mil|Location2.X=2747.638mil|Location1.Y=2148.032mil|Location2.Y=2182.677mil|Absolute=True">Un-Routed Net Constraint: Net NetC2_2 Between Pad C2-2(17.5mm,5mm) on Top And Pad R1-1(19.25mm,5mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3236.614mil|Location2.X=3702.362mil|Location1.Y=2016.142mil|Location2.Y=2117.717mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3236.614mil|Location2.X=3702.362mil|Location1.Y=2016.142mil|Location2.Y=2117.717mil|Absolute=True">Un-Routed Net Constraint: Net NetC3_1 Between Pad JP3-2(32.75mm,2.925mm) on Top And Pad C3-1(41mm,2.5mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3462.992mil|Location2.X=3702.362mil|Location1.Y=2665.748mil|Location2.Y=2842.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3462.992mil|Location2.X=3702.362mil|Location1.Y=2665.748mil|Location2.Y=2842.126mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_1 Between Pad VR1-3(39.4mm,21.5mm) on Top And Pad C3-2(41mm,19mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3477.756mil|Location2.X=3662.008mil|Location1.Y=3554.528mil|Location2.Y=3603.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3477.756mil|Location2.X=3662.008mil|Location1.Y=3554.528mil|Location2.Y=3603.937mil|Absolute=True">Un-Routed Net Constraint: Net NetC4_1 Between Pad R3-2(38.75mm,41mm) on Top And Pad C4-1(42.25mm,40.9mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3601.772mil|Location2.X=3741.732mil|Location1.Y=3554.528mil|Location2.Y=3602.953mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3601.772mil|Location2.X=3741.732mil|Location1.Y=3554.528mil|Location2.Y=3602.953mil|Absolute=True">Un-Routed Net Constraint: Net NetC4_1 Between Pad C4-1(42.25mm,40.9mm) on Top And Pad R4-1(44.5mm,41mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3594.291mil|Location2.X=3662.008mil|Location1.Y=3391.142mil|Location2.Y=3532.087mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3594.291mil|Location2.X=3662.008mil|Location1.Y=3391.142mil|Location2.Y=3532.087mil|Absolute=True">Un-Routed Net Constraint: Net NetC4_2 Between Pad U1-6(41.635mm,36.95mm) on Top And Pad C4-2(42.25mm,39.1mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3041.339mil|Location2.X=3462.205mil|Location1.Y=3218.504mil|Location2.Y=3304.724mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3041.339mil|Location2.X=3462.205mil|Location1.Y=3218.504mil|Location2.Y=3304.724mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad ENC1-2(28mm,32.5mm) on Multi-Layer And Pad C5-1(37.5mm,33.5mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3427.559mil|Location2.X=3671.063mil|Location1.Y=3178.543mil|Location2.Y=3304.724mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3427.559mil|Location2.X=3671.063mil|Location1.Y=3178.543mil|Location2.Y=3304.724mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C5-1(37.5mm,33.5mm) on Top And Pad U1-4(42.905mm,31.55mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3423.622mil|Location2.X=3466.142mil|Location1.Y=3329.134mil|Location2.Y=3421.85mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3423.622mil|Location2.X=3466.142mil|Location1.Y=3329.134mil|Location2.Y=3421.85mil|Absolute=True">Un-Routed Net Constraint: Net INPUT_PWR Between Pad C5-2(37.5mm,35mm) on Top And Pad JP2-1(37.5mm,36.575mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3710.039mil|Location2.X=3963.78mil|Location1.Y=3326.181mil|Location2.Y=3523.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3710.039mil|Location2.X=3963.78mil|Location1.Y=3326.181mil|Location2.Y=3523.78mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C6-1(45mm,35.1mm) on Top And Pad J3-4(49.68mm,38.504mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3644.291mil|Location2.X=3770.276mil|Location1.Y=3178.543mil|Location2.Y=3374.606mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3644.291mil|Location2.X=3770.276mil|Location1.Y=3178.543mil|Location2.Y=3374.606mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-4(42.905mm,31.55mm) on Top And Pad C6-1(45mm,35.1mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3699.213mil|Location2.X=3770.276mil|Location1.Y=3397.047mil|Location2.Y=3539.961mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3699.213mil|Location2.X=3770.276mil|Location1.Y=3397.047mil|Location2.Y=3539.961mil|Absolute=True">Un-Routed Net Constraint: Net NetC6_2 Between Pad R4-2(44.5mm,39.5mm) on Top And Pad C6-2(45mm,36.9mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3644.291mil|Location2.X=3770.276mil|Location1.Y=3391.142mil|Location2.Y=3455.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3644.291mil|Location2.X=3770.276mil|Location1.Y=3391.142mil|Location2.Y=3455.315mil|Absolute=True">Un-Routed Net Constraint: Net NetC6_2 Between Pad U1-5(42.905mm,36.95mm) on Top And Pad C6-2(45mm,36.9mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3644.291mil|Location2.X=3698.425mil|Location1.Y=3102.756mil|Location2.Y=3242.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3644.291mil|Location2.X=3698.425mil|Location1.Y=3102.756mil|Location2.Y=3242.716mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-4(42.905mm,31.55mm) on Top And Pad C7-1(43.5mm,29.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3618.504mil|Location2.X=3698.425mil|Location1.Y=2787.795mil|Location2.Y=3137.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3618.504mil|Location2.X=3698.425mil|Location1.Y=2787.795mil|Location2.Y=3137.401mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad VR2-1(42.6mm,21.5mm) on Top And Pad C7-1(43.5mm,29.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3594.291mil|Location2.X=3639.37mil|Location1.Y=3102.756mil|Location2.Y=3242.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3594.291mil|Location2.X=3639.37mil|Location1.Y=3102.756mil|Location2.Y=3242.716mil|Absolute=True">Un-Routed Net Constraint: Net NetC7_2 Between Pad U1-3(41.635mm,31.55mm) on Top And Pad C7-2(42mm,29.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3604.724mil|Location2.X=3731.89mil|Location1.Y=3004.331mil|Location2.Y=3137.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3604.724mil|Location2.X=3731.89mil|Location1.Y=3004.331mil|Location2.Y=3137.401mil|Absolute=True">Un-Routed Net Constraint: Net NetC7_2 Between Pad C7-2(42mm,29.25mm) on Top And Pad VR2-2(43.75mm,27mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2242.52mil|Location2.X=2481.89mil|Location1.Y=3108.661mil|Location2.Y=3279.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2242.52mil|Location2.X=2481.89mil|Location1.Y=3108.661mil|Location2.Y=3279.134mil|Absolute=True">Un-Routed Net Constraint: Net NetC8_1 Between Pad R5-2(10mm,29.5mm) on Top And Pad C8-1(10mm,32mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2242.52mil|Location2.X=2877.559mil|Location1.Y=3827.165mil|Location2.Y=3928.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2242.52mil|Location2.X=2877.559mil|Location1.Y=3827.165mil|Location2.Y=3928.74mil|Absolute=True">Un-Routed Net Constraint: Net NetC8_2 Between Pad C8-2(10mm,48.5mm) on Top And Pad J2-1(22.05mm,49mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2538.779mil|Location2.X=2599.016mil|Location1.Y=2390.157mil|Location2.Y=2518.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2538.779mil|Location2.X=2599.016mil|Location1.Y=2390.157mil|Location2.Y=2518.307mil|Absolute=True">Un-Routed Net Constraint: Net NetC9_1 Between Pad R7-1(15.25mm,11.25mm) on Top And Pad C9-1(15.25mm,13.35mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2538.779mil|Location2.X=2599.016mil|Location1.Y=2540.748mil|Location2.Y=2693.504mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2538.779mil|Location2.X=2599.016mil|Location1.Y=2540.748mil|Location2.Y=2693.504mil|Absolute=True">Un-Routed Net Constraint: Net NetC9_2 Between Pad C9-2(15.25mm,15.15mm) on Top And Pad JP8-1(15.25mm,18.075mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2466.535mil|Location2.X=2599.016mil|Location1.Y=2540.748mil|Location2.Y=2592.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2466.535mil|Location2.X=2599.016mil|Location1.Y=2540.748mil|Location2.Y=2592.52mil|Absolute=True">Un-Routed Net Constraint: Net NetC9_2 Between Pad TP5-1(13.25mm,15.25mm) on Multi-Layer And Pad C9-2(15.25mm,15.15mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2168.701mil|Location2.X=2302.756mil|Location1.Y=3039.764mil|Location2.Y=3082.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2168.701mil|Location2.X=2302.756mil|Location1.Y=3039.764mil|Location2.Y=3082.283mil|Absolute=True">Un-Routed Net Constraint: Net NetD1_1 Between Pad JP10-1(5.425mm,27.75mm) on Top And Pad D1-1(8.125mm,27.75mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2362.598mil|Location2.X=2391.339mil|Location1.Y=2980.709mil|Location2.Y=3072.441mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2362.598mil|Location2.X=2391.339mil|Location1.Y=2980.709mil|Location2.Y=3072.441mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D2-1(10.375mm,26mm) on Top And Pad D1-2(10.375mm,27.75mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=2391.338mil|Location1.Y=2885.04mil|Location2.Y=3003.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=2391.338mil|Location1.Y=2885.04mil|Location2.Y=3003.543mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J4-6(1.42mm,24.28mm) on Multi-Layer And Pad D2-1(10.375mm,26mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2362.598mil|Location2.X=2448.425mil|Location1.Y=2772.047mil|Location2.Y=3003.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2362.598mil|Location2.X=2448.425mil|Location1.Y=2772.047mil|Location2.Y=3003.543mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D2-1(10.375mm,26mm) on Top And Pad VR3-1(11.5mm,21.1mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2168.701mil|Location2.X=2302.756mil|Location1.Y=2970.866mil|Location2.Y=3013.386mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2168.701mil|Location2.X=2302.756mil|Location1.Y=2970.866mil|Location2.Y=3013.386mil|Absolute=True">Un-Routed Net Constraint: Net NetD2_2 Between Pad JP11-1(5.425mm,26mm) on Top And Pad D2-2(8.125mm,26mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2844.488mil|Location2.X=2903.543mil|Location1.Y=3218.504mil|Location2.Y=3340.551mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2844.488mil|Location2.X=2903.543mil|Location1.Y=3218.504mil|Location2.Y=3340.551mil|Absolute=True">Un-Routed Net Constraint: Net NetENC1_1 Between Pad ENC1-1(23mm,32.5mm) on Multi-Layer And Pad TP14-1(23mm,34.25mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2844.488mil|Location2.X=2903.543mil|Location1.Y=2574.803mil|Location2.Y=2706.693mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2844.488mil|Location2.X=2903.543mil|Location1.Y=2574.803mil|Location2.Y=2706.693mil|Absolute=True">Un-Routed Net Constraint: Net NetENC1_3 Between Pad TP13-1(23mm,16mm) on Multi-Layer And Pad ENC1-3(23mm,18mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3041.339mil|Location2.X=3100.394mil|Location1.Y=2574.803mil|Location2.Y=2706.693mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3041.339mil|Location2.X=3100.394mil|Location1.Y=2574.803mil|Location2.Y=2706.693mil|Absolute=True">Un-Routed Net Constraint: Net NetENC1_4 Between Pad TP17-1(28mm,16mm) on Multi-Layer And Pad ENC1-4(28mm,18mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2705.118mil|Location2.X=3149.213mil|Location1.Y=2011.22mil|Location2.Y=2078.346mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2705.118mil|Location2.X=3149.213mil|Location1.Y=2011.22mil|Location2.Y=2078.346mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_1 Between Pad R2-1(19.25mm,1.5mm) on Top And Pad J1-1(28.95mm,2mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3067.323mil|Location2.X=3212.598mil|Location1.Y=2016.142mil|Location2.Y=2078.346mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3067.323mil|Location2.X=3212.598mil|Location1.Y=2016.142mil|Location2.Y=2078.346mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_1 Between Pad J1-1(28.95mm,2mm) on Top And Pad TP1-1(31mm,2mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2797.638mil|Location2.X=3147.244mil|Location1.Y=2295.669mil|Location2.Y=3649.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2797.638mil|Location2.X=3147.244mil|Location1.Y=2295.669mil|Location2.Y=3649.213mil|Absolute=True">Un-Routed Net Constraint: Net LEFT Between Pad J1-2(21.9mm,9.1mm) on Top And Pad J2-2(29.1mm,41.9mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2797.638mil|Location2.X=3147.244mil|Location1.Y=2148.032mil|Location2.Y=3796.85mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2797.638mil|Location2.X=3147.244mil|Location1.Y=2148.032mil|Location2.Y=3796.85mil|Absolute=True">Un-Routed Net Constraint: Net RIGHT Between Pad J2-3(21.9mm,45.65mm) on Top And Pad J1-3(29.1mm,5.35mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3423.622mil|Location2.X=3963.78mil|Location1.Y=3427.559mil|Location2.Y=3623.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3423.622mil|Location2.X=3963.78mil|Location1.Y=3427.559mil|Location2.Y=3623.78mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad JP2-2(37.5mm,37.425mm) on Top And Pad J3-3(49.68mm,41.044mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3781.89mil|Location2.X=3963.78mil|Location1.Y=3245.04mil|Location2.Y=3323.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3781.89mil|Location2.X=3963.78mil|Location1.Y=3245.04mil|Location2.Y=3323.78mil|Absolute=True">Un-Routed Net Constraint: Net ADC_IN Between Pad JP4-2(46.425mm,33mm) on Top And Pad J3-6(49.68mm,33.424mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=2418.898mil|Location1.Y=2685.433mil|Location2.Y=3163.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=2418.898mil|Location1.Y=2685.433mil|Location2.Y=3163.78mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad J4-4(1.42mm,29.36mm) on Multi-Layer And Pad JP6-2(11.075mm,18.75mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=2063.78mil|Location1.Y=2785.04mil|Location2.Y=2963.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=2063.78mil|Location1.Y=2785.04mil|Location2.Y=2963.78mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J4-7(1.42mm,21.74mm) on Multi-Layer And Pad J4-6(1.42mm,24.28mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=2688.583mil|Location1.Y=2485.039mil|Location2.Y=2768.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=2688.583mil|Location1.Y=2485.039mil|Location2.Y=2768.307mil|Absolute=True">Un-Routed Net Constraint: Net ENC_A Between Pad J6-1(1.42mm,14.12mm) on Multi-Layer And Pad JP12-1(17.75mm,19.925mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=3298.819mil|Location1.Y=2385.039mil|Location2.Y=2768.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=3298.819mil|Location1.Y=2385.039mil|Location2.Y=2768.307mil|Absolute=True">Un-Routed Net Constraint: Net ENC_B Between Pad J6-2(1.42mm,11.58mm) on Multi-Layer And Pad JP14-1(33.25mm,19.925mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=2149.606mil|Location1.Y=2285.039mil|Location2.Y=2363.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=2149.606mil|Location1.Y=2285.039mil|Location2.Y=2363.78mil|Absolute=True">Un-Routed Net Constraint: Net DAC_OUT Between Pad J6-3(1.42mm,9.04mm) on Multi-Layer And Pad TP7-1(4mm,9mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=3191.535mil|Location1.Y=2185.039mil|Location2.Y=3416.929mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1985.039mil|Location2.X=3191.535mil|Location1.Y=2185.039mil|Location2.Y=3416.929mil|Absolute=True">Un-Routed Net Constraint: Net BUTTON Between Pad J6-4(1.42mm,6.5mm) on Multi-Layer And Pad JP13-2(30.675mm,36.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2133.268mil|Location2.X=2162.992mil|Location1.Y=2970.866mil|Location2.Y=3082.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2133.268mil|Location2.X=2162.992mil|Location1.Y=2970.866mil|Location2.Y=3082.283mil|Absolute=True">Un-Routed Net Constraint: Net NetJP7_1 Between Pad JP11-2(4.575mm,26mm) on Top And Pad JP10-2(4.575mm,27.75mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2133.268mil|Location2.X=2162.992mil|Location1.Y=3039.764mil|Location2.Y=3151.181mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2133.268mil|Location2.X=2162.992mil|Location1.Y=3039.764mil|Location2.Y=3151.181mil|Absolute=True">Un-Routed Net Constraint: Net NetJP7_1 Between Pad JP10-2(4.575mm,27.75mm) on Top And Pad JP7-1(4.575mm,29.5mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2705.118mil|Location2.X=2747.638mil|Location1.Y=2208.071mil|Location2.Y=2289.961mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2705.118mil|Location2.X=2747.638mil|Location1.Y=2208.071mil|Location2.Y=2289.961mil|Absolute=True">Un-Routed Net Constraint: Net MIC_PWR Between Pad R1-2(19.25mm,6.5mm) on Top And Pad JP1-1(19.25mm,7.825mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2112.205mil|Location2.X=2162.992mil|Location1.Y=2604.331mil|Location2.Y=3013.386mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2112.205mil|Location2.X=2162.992mil|Location1.Y=2604.331mil|Location2.Y=3013.386mil|Absolute=True">Un-Routed Net Constraint: Net NetJP7_1 Between Pad TP6-1(4.25mm,16.75mm) on Multi-Layer And Pad JP11-2(4.575mm,26mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2705.118mil|Location2.X=2949.41mil|Location1.Y=2295.669mil|Location2.Y=2540.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2705.118mil|Location2.X=2949.41mil|Location1.Y=2295.669mil|Location2.Y=2540.945mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad JP1-2(19.25mm,8.675mm) on Top And Pad R8-2(24.5mm,14mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2141.732mil|Location2.X=2747.638mil|Location1.Y=2092.52mil|Location2.Y=2325.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2141.732mil|Location2.X=2747.638mil|Location1.Y=2092.52mil|Location2.Y=2325.394mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad TP11-1(5mm,3.75mm) on Multi-Layer And Pad JP1-2(19.25mm,8.675mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2646.063mil|Location2.X=2700.787mil|Location1.Y=2643.701mil|Location2.Y=2733.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2646.063mil|Location2.X=2700.787mil|Location1.Y=2643.701mil|Location2.Y=2733.858mil|Absolute=True">Un-Routed Net Constraint: Net NetC13_2 Between Pad JP12-2(17.75mm,19.075mm) on Top And Pad TP12-1(18mm,17.75mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3057.087mil|Location2.X=3156.102mil|Location1.Y=3372.047mil|Location2.Y=3419.291mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3057.087mil|Location2.X=3156.102mil|Location1.Y=3372.047mil|Location2.Y=3419.291mil|Absolute=True">Un-Routed Net Constraint: Net NetC12_2 Between Pad TP15-1(28.25mm,36.25mm) on Multi-Layer And Pad JP13-1(29.825mm,36.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3244.095mil|Location2.X=3298.819mil|Location1.Y=2643.701mil|Location2.Y=2733.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3244.095mil|Location2.X=3298.819mil|Location1.Y=2643.701mil|Location2.Y=2733.858mil|Absolute=True">Un-Routed Net Constraint: Net NetC14_2 Between Pad TP16-1(33mm,17.75mm) on Multi-Layer And Pad JP14-2(33.25mm,19.075mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3423.622mil|Location2.X=3521.063mil|Location1.Y=3391.142mil|Location2.Y=3455.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3423.622mil|Location2.X=3521.063mil|Location1.Y=3391.142mil|Location2.Y=3455.315mil|Absolute=True">Un-Routed Net Constraint: Net INPUT_PWR Between Pad JP2-1(37.5mm,36.575mm) on Top And Pad U1-8(39.095mm,36.95mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2719.882mil|Location2.X=3466.142mil|Location1.Y=3295.669mil|Location2.Y=3457.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2719.882mil|Location2.X=3466.142mil|Location1.Y=3295.669mil|Location2.Y=3457.283mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad R10-2(19.5mm,34.25mm) on Top And Pad JP2-2(37.5mm,37.425mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3423.622mil|Location2.X=3763.386mil|Location1.Y=2787.795mil|Location2.Y=3457.283mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3423.622mil|Location2.X=3763.386mil|Location1.Y=2787.795mil|Location2.Y=3457.283mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad JP2-2(37.5mm,37.425mm) on Top And Pad VR2-3(44.9mm,21.5mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3165.354mil|Location2.X=3279.134mil|Location1.Y=2023.622mil|Location2.Y=2070.866mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3165.354mil|Location2.X=3279.134mil|Location1.Y=2023.622mil|Location2.Y=2070.866mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_1 Between Pad TP1-1(31mm,2mm) on Multi-Layer And Pad JP3-1(32.75mm,2.075mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3594.291mil|Location2.X=3776.181mil|Location1.Y=3246.457mil|Location2.Y=3455.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3594.291mil|Location2.X=3776.181mil|Location1.Y=3246.457mil|Location2.Y=3455.315mil|Absolute=True">Un-Routed Net Constraint: Net NetC4_2 Between Pad U1-6(41.635mm,36.95mm) on Top And Pad JP4-1(45.575mm,33mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3381.89mil|Location2.X=3429.134mil|Location1.Y=3096.457mil|Location2.Y=3185.63mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3381.89mil|Location2.X=3429.134mil|Location1.Y=3096.457mil|Location2.Y=3185.63mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad TP3-1(36.5mm,29.25mm) on Multi-Layer And Pad JP5-1(36.5mm,30.575mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3384.252mil|Location2.X=3451.378mil|Location1.Y=3191.338mil|Location2.Y=3603.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3384.252mil|Location2.X=3451.378mil|Location1.Y=3191.338mil|Location2.Y=3603.937mil|Absolute=True">Un-Routed Net Constraint: Net NetJP5_2 Between Pad JP5-2(36.5mm,31.425mm) on Top And Pad R3-1(37.25mm,41mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2387.205mil|Location2.X=2453.346mil|Location1.Y=2630.512mil|Location2.Y=2727.953mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2387.205mil|Location2.X=2453.346mil|Location1.Y=2630.512mil|Location2.Y=2727.953mil|Absolute=True">Un-Routed Net Constraint: Net OUTPUT_PWR Between Pad U2-8(11.45mm,17.155mm) on Top And Pad JP6-1(11.925mm,18.75mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2389.173mil|Location2.X=2752.559mil|Location1.Y=2685.433mil|Location2.Y=3338.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2389.173mil|Location2.X=2752.559mil|Location1.Y=2685.433mil|Location2.Y=3338.189mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad JP6-2(11.075mm,18.75mm) on Top And Pad R10-2(19.5mm,34.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2389.173mil|Location2.X=2949.41mil|Location1.Y=2498.425mil|Location2.Y=2727.953mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2389.173mil|Location2.X=2949.41mil|Location1.Y=2498.425mil|Location2.Y=2727.953mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad JP6-2(11.075mm,18.75mm) on Top And Pad R8-2(24.5mm,14mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2167.716mil|Location2.X=2319.488mil|Location1.Y=3108.661mil|Location2.Y=3151.181mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2167.716mil|Location2.X=2319.488mil|Location1.Y=3108.661mil|Location2.Y=3151.181mil|Absolute=True">Un-Routed Net Constraint: Net NetJP7_2 Between Pad JP7-2(5.425mm,29.5mm) on Top And Pad R5-1(8.5mm,29.5mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2394.094mil|Location2.X=2590.157mil|Location1.Y=2699.213mil|Location2.Y=2916.929mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2394.094mil|Location2.X=2590.157mil|Location1.Y=2699.213mil|Location2.Y=2916.929mil|Absolute=True">Un-Routed Net Constraint: Net NetJP8_2 Between Pad VR3-3(11.5mm,23.4mm) on Top And Pad JP8-2(15.25mm,18.925mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2102.362mil|Location2.X=2201.378mil|Location1.Y=2299.213mil|Location2.Y=2346.457mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2102.362mil|Location2.X=2201.378mil|Location1.Y=2299.213mil|Location2.Y=2346.457mil|Absolute=True">Un-Routed Net Constraint: Net DAC_OUT Between Pad TP7-1(4mm,9mm) on Multi-Layer And Pad JP9-1(5.575mm,9mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2207.087mil|Location2.X=2307.086mil|Location1.Y=2299.213mil|Location2.Y=2346.457mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2207.087mil|Location2.X=2307.086mil|Location1.Y=2299.213mil|Location2.Y=2346.457mil|Absolute=True">Un-Routed Net Constraint: Net NetJP9_2 Between Pad JP9-2(6.425mm,9mm) on Top And Pad TP8-1(8mm,9mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2778.937mil|Location2.X=2897.638mil|Location1.Y=3293.307mil|Location2.Y=3340.551mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2778.937mil|Location2.X=2897.638mil|Location1.Y=3293.307mil|Location2.Y=3340.551mil|Absolute=True">Un-Routed Net Constraint: Net NetENC1_1 Between Pad R10-1(21mm,34.25mm) on Top And Pad TP14-1(23mm,34.25mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2705.118mil|Location2.X=2747.638mil|Location1.Y=2070.276mil|Location2.Y=2181.693mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2705.118mil|Location2.X=2747.638mil|Location1.Y=2070.276mil|Location2.Y=2181.693mil|Absolute=True">Un-Routed Net Constraint: Net NetC2_2 Between Pad R2-2(19.25mm,3mm) on Top And Pad R1-1(19.25mm,5mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2788.78mil|Location2.X=2890.354mil|Location1.Y=2498.425mil|Location2.Y=2540.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2788.78mil|Location2.X=2890.354mil|Location1.Y=2498.425mil|Location2.Y=2540.945mil|Absolute=True">Un-Routed Net Constraint: Net NetENC1_3 Between Pad R11-2(21.25mm,14mm) on Top And Pad R8-1(23mm,14mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2850.394mil|Location2.X=2897.638mil|Location1.Y=3293.307mil|Location2.Y=3416.929mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2850.394mil|Location2.X=2897.638mil|Location1.Y=3293.307mil|Location2.Y=3416.929mil|Absolute=True">Un-Routed Net Constraint: Net NetENC1_1 Between Pad TP14-1(23mm,34.25mm) on Multi-Layer And Pad R12-1(23mm,36.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3054.527mil|Location2.X=3156.102mil|Location1.Y=2498.425mil|Location2.Y=2540.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3054.527mil|Location2.X=3156.102mil|Location1.Y=2498.425mil|Location2.Y=2540.945mil|Absolute=True">Un-Routed Net Constraint: Net NetENC1_4 Between Pad R9-1(28mm,14mm) on Top And Pad R13-2(29.75mm,14mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3342.52mil|Location2.X=3451.378mil|Location1.Y=3559.055mil|Location2.Y=3606.299mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3342.52mil|Location2.X=3451.378mil|Location1.Y=3559.055mil|Location2.Y=3606.299mil|Absolute=True">Un-Routed Net Constraint: Net NetJP5_2 Between Pad TP4-1(35.5mm,41mm) on Multi-Layer And Pad R3-1(37.25mm,41mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2259.843mil|Location2.X=2526.181mil|Location1.Y=2299.213mil|Location2.Y=2353.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2259.843mil|Location2.X=2526.181mil|Location1.Y=2299.213mil|Location2.Y=2353.937mil|Absolute=True">Un-Routed Net Constraint: Net NetJP9_2 Between Pad TP8-1(8mm,9mm) on Multi-Layer And Pad R6-1(13.75mm,9.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2552.559mil|Location2.X=2585.236mil|Location1.Y=2311.417mil|Location2.Y=2432.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2552.559mil|Location2.X=2585.236mil|Location1.Y=2311.417mil|Location2.Y=2432.677mil|Absolute=True">Un-Routed Net Constraint: Net NetC9_1 Between Pad R7-1(15.25mm,11.25mm) on Top And Pad R6-2(15.25mm,9.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2850.394mil|Location2.X=2897.638mil|Location1.Y=2498.425mil|Location2.Y=2622.047mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2850.394mil|Location2.X=2897.638mil|Location1.Y=2498.425mil|Location2.Y=2622.047mil|Absolute=True">Un-Routed Net Constraint: Net NetENC1_3 Between Pad TP13-1(23mm,16mm) on Multi-Layer And Pad R8-1(23mm,14mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2916.732mil|Location2.X=3028.149mil|Location1.Y=2498.425mil|Location2.Y=2540.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2916.732mil|Location2.X=3028.149mil|Location1.Y=2498.425mil|Location2.Y=2540.945mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad R8-2(24.5mm,14mm) on Top And Pad R9-2(26.5mm,14mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3047.244mil|Location2.X=3094.488mil|Location1.Y=2498.425mil|Location2.Y=2622.047mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3047.244mil|Location2.X=3094.488mil|Location1.Y=2498.425mil|Location2.Y=2622.047mil|Absolute=True">Un-Routed Net Constraint: Net NetENC1_4 Between Pad R9-1(28mm,14mm) on Top And Pad TP17-1(28mm,16mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2141.732mil|Location2.X=2238.779mil|Location1.Y=1994.094mil|Location2.Y=2507.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2141.732mil|Location2.X=2238.779mil|Location1.Y=1994.094mil|Location2.Y=2507.284mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad TP10-1(5mm,1.25mm) on Multi-Layer And Pad U2-4(6.05mm,13.345mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3529.528mil|Location2.X=3576.772mil|Location1.Y=3391.142mil|Location2.Y=3527.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3529.528mil|Location2.X=3576.772mil|Location1.Y=3391.142mil|Location2.Y=3527.559mil|Absolute=True">Un-Routed Net Constraint: Net NetC4_2 Between Pad TP2-1(40.25mm,39mm) on Multi-Layer And Pad U1-7(40.365mm,36.95mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2387.205mil|Location2.X=2513.779mil|Location1.Y=2530.512mil|Location2.Y=2592.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2387.205mil|Location2.X=2513.779mil|Location1.Y=2530.512mil|Location2.Y=2592.52mil|Absolute=True">Un-Routed Net Constraint: Net NetC9_2 Between Pad U2-6(11.45mm,14.615mm) on Top And Pad TP5-1(13.25mm,15.25mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2112.205mil|Location2.X=2238.779mil|Location1.Y=2580.512mil|Location2.Y=2651.575mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2112.205mil|Location2.X=2238.779mil|Location1.Y=2580.512mil|Location2.Y=2651.575mil|Absolute=True">Un-Routed Net Constraint: Net NetJP7_1 Between Pad TP6-1(4.25mm,16.75mm) on Multi-Layer And Pad U2-2(6.05mm,15.885mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2174.606mil|Location2.X=2238.779mil|Location1.Y=2530.512mil|Location2.Y=2730.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2174.606mil|Location2.X=2238.779mil|Location1.Y=2530.512mil|Location2.Y=2730.315mil|Absolute=True">Un-Routed Net Constraint: Net NetTP9_1 Between Pad TP9-1(6mm,18.75mm) on Multi-Layer And Pad U2-3(6.05mm,14.615mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2177.559mil|Location2.X=2231.89mil|Location1.Y=2683.071mil|Location2.Y=2885.433mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2177.559mil|Location2.X=2231.89mil|Location1.Y=2683.071mil|Location2.Y=2885.433mil|Absolute=True">Un-Routed Net Constraint: Net NetTP9_1 Between Pad TP9-1(6mm,18.75mm) on Multi-Layer And Pad VR3-2(6mm,22.25mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3544.291mil|Location2.X=3621.063mil|Location1.Y=3391.142mil|Location2.Y=3455.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3544.291mil|Location2.X=3621.063mil|Location1.Y=3391.142mil|Location2.Y=3455.315mil|Absolute=True">Un-Routed Net Constraint: Net NetC4_2 Between Pad U1-7(40.365mm,36.95mm) on Top And Pad U1-6(41.635mm,36.95mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2174.606mil|Location2.X=2238.779mil|Location1.Y=2580.512mil|Location2.Y=2657.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2174.606mil|Location2.X=2238.779mil|Location1.Y=2580.512mil|Location2.Y=2657.284mil|Absolute=True">Un-Routed Net Constraint: Net NetJP7_1 Between Pad U2-2(6.05mm,15.885mm) on Top And Pad U2-1(6.05mm,17.155mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2387.205mil|Location2.X=2451.378mil|Location1.Y=2530.512mil|Location2.Y=2607.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2387.205mil|Location2.X=2451.378mil|Location1.Y=2530.512mil|Location2.Y=2607.284mil|Absolute=True">Un-Routed Net Constraint: Net NetC9_2 Between Pad U2-6(11.45mm,14.615mm) on Top And Pad U2-7(11.45mm,15.885mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3401.968mil|Location2.X=3515.354mil|Location1.Y=2787.795mil|Location2.Y=3058.661mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3401.968mil|Location2.X=3515.354mil|Location1.Y=2787.795mil|Location2.Y=3058.661mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad VR1-1(37.1mm,21.5mm) on Top And Pad VR1-2(38.25mm,27mm) on Top </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

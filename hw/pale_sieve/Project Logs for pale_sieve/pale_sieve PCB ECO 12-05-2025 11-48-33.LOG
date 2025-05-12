@@ -1,0 +1,78 @@
+Removed Pin From Net: NetName=NetC9_2 Pin=U2-1
+Removed Pin From Net: NetName=NetC9_2 Pin=U2-2
+Removed Pin From Net: NetName=NetC11_2 Pin=U2-3
+Removed Pin From Net: NetName=NetTP9_1 Pin=U2-5
+Removed Pin From Net: NetName=NetJP7_1 Pin=U2-6
+Removed Pin From Net: NetName=NetJP7_1 Pin=U2-7
+Change Component Footprint: Designator=C3 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=6054 WIMA
+Change Component Footprint: Designator=C8 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=6054 WIMA
+Change Component Footprint: Designator=C1 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=C0603
+Change Component Footprint: Designator=C2 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=C0603
+Change Component Footprint: Designator=C5 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=C0603
+Change Component Footprint: Designator=C7 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=C0603
+Change Component Footprint: Designator=C10 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=C0603
+Change Component Footprint: Designator=C12 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=C0603
+Change Component Footprint: Designator=C13 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=C0603
+Change Component Footprint: Designator=C14 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=C0603
+Change Component Footprint: Designator=C4 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=C0805
+Change Component Footprint: Designator=C6 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=C0805
+Change Component Footprint: Designator=C9 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=C0805
+Change Component Footprint: Designator=C11 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=C0805
+Change Component Footprint: Designator=ENC1 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PEC11L
+Change Component Footprint: Designator=TP1 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP2 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP3 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP4 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP5 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP6 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP7 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP8 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP9 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP10 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP11 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP12 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP13 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP14 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP15 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP16 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=TP17 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 0.75MM
+Change Component Footprint: Designator=LP1 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=PTH 1.75MM
+Change Component Footprint: Designator=R1 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=R0603
+Change Component Footprint: Designator=R2 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=R0603
+Change Component Footprint: Designator=R3 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=R0603
+Change Component Footprint: Designator=R4 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=R0603
+Change Component Footprint: Designator=R5 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=R0603
+Change Component Footprint: Designator=R6 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=R0603
+Change Component Footprint: Designator=R7 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=R0603
+Change Component Footprint: Designator=R8 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=R0603
+Change Component Footprint: Designator=R9 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=R0603
+Change Component Footprint: Designator=R10 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=R0603
+Change Component Footprint: Designator=R11 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=R0603
+Change Component Footprint: Designator=R12 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=R0603
+Change Component Footprint: Designator=R13 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=R0603
+Change Component Footprint: Designator=JP1 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=JP2 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=JP3 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=JP4 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=JP5 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=JP6 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=JP7 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=JP8 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=JP9 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=JP10 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=JP11 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=JP12 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=JP13 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=JP14 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SB 1.0x1.5mm
+Change Component Footprint: Designator=J1 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SJ2-35894B-SMT
+Change Component Footprint: Designator=J2 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SJ2-35894B-SMT
+Change Component Footprint: Designator=D1 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SOD-323
+Change Component Footprint: Designator=D2 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SOD-323
+Change Component Footprint: Designator=U1 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=SOIC-8 D
+Change Component Footprint: Designator=VR3 Old Footprint=FileName=C:\Users\theodote\Documents\! Senor Year Project\Senior-Project\hw\pale_sieve\pale_sieve.PcbLib New Footprint=TS53YL
+Added Pin To Net: NetName=NetJP7_1 Pin=U2-1
+Added Pin To Net: NetName=NetJP7_1 Pin=U2-2
+Added Pin To Net: NetName=NetTP9_1 Pin=U2-3
+Added Pin To Net: NetName=NetC11_2 Pin=U2-5
+Added Pin To Net: NetName=NetC9_2 Pin=U2-6
+Added Pin To Net: NetName=NetC9_2 Pin=U2-7

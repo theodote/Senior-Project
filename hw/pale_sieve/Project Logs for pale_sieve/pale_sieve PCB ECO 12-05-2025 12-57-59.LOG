@@ -1,0 +1,73 @@
+Change Physical Footprint: Designator=C1 Old Footprint=C0603 New Footprint=C0603
+Change Physical Footprint: Designator=C2 Old Footprint=C0603 New Footprint=C0603
+Change Physical Footprint: Designator=C3 Old Footprint=6054 WIMA New Footprint=6054 WIMA
+Change Physical Footprint: Designator=C4 Old Footprint=C0805 New Footprint=C0805
+Change Physical Footprint: Designator=C5 Old Footprint=C0603 New Footprint=C0603
+Change Physical Footprint: Designator=C6 Old Footprint=C0805 New Footprint=C0805
+Change Physical Footprint: Designator=C7 Old Footprint=C0603 New Footprint=C0603
+Change Physical Footprint: Designator=C8 Old Footprint=6054 WIMA New Footprint=6054 WIMA
+Change Physical Footprint: Designator=C9 Old Footprint=C0805 New Footprint=C0805
+Change Physical Footprint: Designator=C10 Old Footprint=C0603 New Footprint=C0603
+Change Physical Footprint: Designator=C11 Old Footprint=C0805 New Footprint=C0805
+Change Physical Footprint: Designator=C12 Old Footprint=C0603 New Footprint=C0603
+Change Physical Footprint: Designator=C13 Old Footprint=C0603 New Footprint=C0603
+Change Physical Footprint: Designator=C14 Old Footprint=C0603 New Footprint=C0603
+Change Physical Footprint: Designator=D1 Old Footprint=SOD-323 New Footprint=SOD-323
+Change Physical Footprint: Designator=D2 Old Footprint=SOD-323 New Footprint=SOD-323
+Change Physical Footprint: Designator=ENC1 Old Footprint=PEC11L New Footprint=PEC11L
+Change Physical Footprint: Designator=J1 Old Footprint=SJ2-35894B-SMT New Footprint=SJ2-35894B-SMT
+Change Physical Footprint: Designator=J2 Old Footprint=SJ2-35894B-SMT New Footprint=SJ2-35894B-SMT
+Change Physical Footprint: Designator=J3 Old Footprint=1X10 2.54MM New Footprint=1X10 2.54MM
+Change Physical Footprint: Designator=J4 Old Footprint=1x8 2.54MM New Footprint=1x8 2.54MM
+Change Physical Footprint: Designator=J5 Old Footprint=1x8 2.54MM New Footprint=1x8 2.54MM
+Change Physical Footprint: Designator=J6 Old Footprint=1X6 2.54MM New Footprint=1X6 2.54MM
+Change Physical Footprint: Designator=JP1 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=JP2 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=JP3 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=JP4 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=JP5 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=JP6 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=JP7 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=JP8 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=JP9 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=JP10 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=JP11 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=JP12 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=JP13 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=JP14 Old Footprint=SB 1.0x1.5mm New Footprint=SB 1.0x1.5mm
+Change Physical Footprint: Designator=LP1 Old Footprint=PTH 1.75MM New Footprint=PTH 1.75MM
+Change Physical Footprint: Designator=R1 Old Footprint=R0603 New Footprint=R0603
+Change Physical Footprint: Designator=R2 Old Footprint=R0603 New Footprint=R0603
+Change Physical Footprint: Designator=R3 Old Footprint=R0603 New Footprint=R0603
+Change Physical Footprint: Designator=R4 Old Footprint=R0603 New Footprint=R0603
+Change Physical Footprint: Designator=R5 Old Footprint=R0603 New Footprint=R0603
+Change Physical Footprint: Designator=R6 Old Footprint=R0603 New Footprint=R0603
+Change Physical Footprint: Designator=R7 Old Footprint=R0603 New Footprint=R0603
+Change Physical Footprint: Designator=R8 Old Footprint=R0603 New Footprint=R0603
+Change Physical Footprint: Designator=R9 Old Footprint=R0603 New Footprint=R0603
+Change Physical Footprint: Designator=R10 Old Footprint=R0603 New Footprint=R0603
+Change Physical Footprint: Designator=R11 Old Footprint=R0603 New Footprint=R0603
+Change Physical Footprint: Designator=R12 Old Footprint=R0603 New Footprint=R0603
+Change Physical Footprint: Designator=R13 Old Footprint=R0603 New Footprint=R0603
+Change Physical Footprint: Designator=TP1 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP2 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP3 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP4 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP5 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP6 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP7 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP8 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP9 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP10 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP11 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP12 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP13 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP14 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP15 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP16 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=TP17 Old Footprint=PTH 0.7MM New Footprint=PTH 0.7MM
+Change Physical Footprint: Designator=U1 Old Footprint=SOIC-8 D New Footprint=SOIC-8 D
+Change Physical Footprint: Designator=U2 Old Footprint=SOIC-8 D New Footprint=SOIC-8 D
+Change Physical Footprint: Designator=VR1 Old Footprint=TS53YL New Footprint=TS53YL
+Change Physical Footprint: Designator=VR2 Old Footprint=TS53YL New Footprint=TS53YL
+Change Physical Footprint: Designator=VR3 Old Footprint=TS53YL New Footprint=TS53YL
