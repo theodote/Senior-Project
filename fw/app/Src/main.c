@@ -28,7 +28,6 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "arm_math.h"
-#include "math.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -37,6 +36,8 @@ typedef enum {false, true} bool;
 
 typedef enum {OLD, PREV, NEW} processFrame;
 typedef enum {LEFT, RIGHT} rawFrame;
+
+
 
 #define NUM_PARAMETERS  5
 typedef enum {
@@ -49,17 +50,16 @@ typedef enum {
 
 typedef struct {
   const ParameterType type;
-  float32_t ref;
+  int32_t counter;
   const float32_t min;
   const float32_t max;
   const float32_t step;
   volatile float32_t value;
+  volatile float32_t baseValue;
 } Parameter;
 
 typedef struct {
   ParameterType curr;
-  int32_t prevCount;
-  // int16_t currCounter;
   Parameter parameters[NUM_PARAMETERS];
 } UserControl;
 
@@ -88,7 +88,6 @@ typedef struct {
 #define FLOAT_HALF_FRAME  HALF_FRAME_SIZE * sizeof(float)
 #define FULL_FRAME_SIZE   2 * HALF_FRAME_SIZE
 #define FLOAT_FULL_FRAME  FULL_FRAME_SIZE * sizeof(float)
-// TODO: use everywhere
 
 // mix signed and unsigned of same rank - UNSIGNED WINS. DO NOT USE U
 #define ADC_MAX           4096
@@ -162,13 +161,11 @@ bool bypass = false;
 arm_rfft_fast_instance_f32 fft;
 
 UserControl ctrl = {THRESHOLD, 0, {
-  // {THRESHOLD,       -15.0,  -25.0, -5.0, 1.0,  -15.0},
-  // {THRESHOLD,       3.0,   0.0,   20.0, 1.0,  3.0},
-  {THRESHOLD,       -20.0,   -25.0,   0.0, 1.0,  -20.0},
-  {VOLUME,          0.9,    0.0,   1.0,  0.05, 0.9},
-  {SUBTRACTIONS,  2.0,    0.0,   10.0, 1.0,  2.0},
-  {ATTENUATION,      0.03,   0.00,  0.10, 0.01, 0.03},
-  {COYOTE,         30.0,   0.0,   50.0, 5.0,  30.0}
+  {THRESHOLD,     0,  -25.0,  0.0,  1.0, -20.0, -20.0},
+  {VOLUME,        0,   0.0,   1.0,  0.05, 0.9,   0.9},
+  {SUBTRACTIONS,  0,   0.0,   10.0, 1.0,  2.0,   2.0},
+  {ATTENUATION,   0,   0.00,  0.10, 0.01, 0.03,  0.03},
+  {COYOTE,        0,   0.0,   50.0, 5.0,  30.0,  30.0}
 }};
 bool justPressed = false;     // protect timer from improper restarting
 uint8_t clickCount = 0;
@@ -197,6 +194,8 @@ static void arm_hanning_f32(float32_t * pDst, uint32_t blockSize) {
   }
 }
 
+
+
 static int16_t clampInt16(int16_t value, int16_t min, int16_t max) {
   if (value > max) return max;
   if (value < min) return min;
@@ -209,6 +208,8 @@ static void MultiBufferRotate(MultiBuffer* mb) {
   }
 }
 
+
+
 static float32_t UserControlValue(const UserControl* control, ParameterType type) {
   return control->parameters[type].value;
 }
@@ -218,26 +219,27 @@ static int16_t UserControlUpdate(UserControl* control) {
   Parameter* param = &(control->parameters[*type]);
 
   int32_t count = (int32_t)(TIM2->CNT) - CNT_MID;
-  float32_t newValue = param->ref + count * param->step;
+  float32_t newValue = param->baseValue + count * param->step;
 
   if (newValue > param->max || newValue < param->min) {
-    TIM2->CNT = control->prevCount;
+    TIM2->CNT = (uint32_t)(param->counter + CNT_MID);
   } else {
     param->value = newValue;
-    param->ref = newValue;
+    param->counter = count;
   }
-  control->prevCount = (int32_t)TIM2->CNT;
 
-  return (int32_t)TIM2->CNT - CNT_MID;
+  return count;
 }
 
 static ParameterType UserControlSwitch(UserControl* control) {
   ParameterType* type = &(control->curr);
-  UserControlUpdate(control);
-  TIM2->CNT = CNT_MID;
   *type = NEXT(*(type), NUM_PARAMETERS);
+  TIM2->CNT = (uint32_t)(CNT_MID + control->parameters[*type].counter);
+  UserControlUpdate(control);
   return *type;
 }
+
+
 
 void HAL_GPIO_EXTI_Callback(uint16_t pin) {
   if (justPressed == false || TIM10->CNT > BOUNCE_TIME) {
@@ -288,52 +290,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   }
 }
 
-// DOES NOT WORK FOR NOW FOR SOME REASON
-// void HAL_GPIO_EXTI_Callback(uint16_t pin) {
-//   if (pin == SwitchBtn_Pin) {
-//     if (TIM10->CNT > BOUNCE_TIME) {
-//       clickCount += 1;
-//     }
-//     if (justPressed == false) {
-//       HAL_TIM_Base_Start_IT(&htim10);
-//     }
-//     HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-//     justPressed = true;
-//   }
-// }
 
-// void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-//   if (htim == &htim10) {
-//     if (clickCount == 1) { // single click or long press
-//       if (HAL_GPIO_ReadPin(SwitchBtn_GPIO_Port, SwitchBtn_Pin) == GPIO_PIN_RESET) { // hold
-//         holdCount += 1;
-//         return;   // keep counting!
-//       } else {    // finally released
-//         switch (holdCount) {
-//         case 0:   // toggle mute
-//           mute = !mute;
-//           break;
-//         case 1:   // force uMag
-//         case 2:   // some grace period, sure
-//           forceuMag = true;
-//           break;
-//         default:
-//           bypass = !bypass;
-//           break;
-//         }
-//       }
-//     } else { // multiple clicks
-//       UserControlSwitch(&ctrl);
-//     }
-
-//     HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-//     HAL_TIM_Base_Stop_IT(&htim10);
-//     clickCount = 0;
-//     holdCount = 0;
-//     justPressed = false;
-//     TIM10->CNT = 0;
-//   }
-// }
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
   UNUSED(hadc);
@@ -350,6 +307,8 @@ void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
   MultiBufferRotate(&adcBuf);
   adcBuf.dmaDone = true;
 }
+
+
 
 static void processData() {
   // load from ADC
