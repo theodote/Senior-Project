@@ -1,0 +1,21 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: pale_sieve.PcbDoc   13/05/2025  08:29:15
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top to Bottom
+ASCII RoundHoles File : pale_sieve-RoundHoles.TXT
+ASCII SlotHoles File : pale_sieve-SlotHoles.TXT
+EIA File   : pale_sieve.DRL
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      8mil (0.201mm)                                            Round             29        PTH        9.32inch (236.70mm)
+T2      28mil (0.701mm)                                           Round             17        PTH        5.94inch (150.84mm)
+T3      43mil (1.1mm)                                             Round             37        PTH        8.97inch (227.90mm)
+T4      55mil (1.4mm)                                             Slot              2         PTH        1.06inch (27.02mm)
+T5      69mil (1.75mm)                                            Round             1         PTH        0.00inch (0.00mm)
+T6      55mil (1.4mm)                                             Round             4         NPTH       1.83inch (46.50mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              90
+
+Total Processing Time (hh:mm:ss) : 00:00:00

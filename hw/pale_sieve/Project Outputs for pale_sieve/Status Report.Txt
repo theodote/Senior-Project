@@ -1,0 +1,14 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [pale_sieve.PrjPcb]
+   Generated File[pale_sieve-RoundHoles.TXT]
+   Generated File[pale_sieve-SlotHoles.TXT]
+   Generated File[pale_sieve.DRL]
+   Generated File[pale_sieve.LDP]
+   Generated File[pale_sieve.DRR]
+
+
+Files Generated   : 5
+Documents Printed : 0
+
+Finished Output Generation At 08:29:15 On 13/05/2025

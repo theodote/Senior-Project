@@ -1,0 +1,56 @@
+D10   ROUNDED             7.874       7.874       0.000  LINE       0.000
+D11   ROUNDED             7.087       7.087       0.000  LINE       0.000
+D12   ROUNDED            11.811      11.811       0.000  LINE       0.000
+D15   RECTANGULAR        48.425      60.236       0.000 FLASH      90.000
+D16   RECTANGULAR        34.646      34.646       0.000 FLASH      90.000
+D18   RECTANGULAR        34.646      34.646       0.000 FLASH     180.000
+D19   RECTANGULAR        54.331      54.331       0.000 FLASH       0.000
+D20   RECTANGULAR        54.331      54.331       0.000 FLASH      90.000
+D21   RECTANGULAR        28.740      22.835       0.000 FLASH       0.000
+D23   RECTANGULAR        48.425      60.236       0.000 FLASH       0.000
+D24   RECTANGULAR        32.677      42.520       0.000 FLASH       0.000
+D25   RECTANGULAR        32.677      42.520       0.000 FLASH     270.000
+D26   RECTANGULAR       101.575     239.370       0.000 FLASH      90.000
+D27   RECTANGULAR        81.890      54.331       0.000 FLASH      90.000
+D28   RECTANGULAR        81.890      54.331       0.000 FLASH       0.000
+D29   ROUNDED            63.118      63.118       0.000 FLASH       0.000
+D30   ROUNDED            81.890      81.890       0.000 FLASH       0.000
+D31   ROUNDED            62.205      62.205       0.000 FLASH       0.000
+D32   ROUNDED            50.394      50.394       0.000 FLASH       0.000
+D33   ROUNDED           101.575      74.016       0.000 FLASH      90.000
+D34   ROUNDED            91.732      91.732       0.000 FLASH       0.000
+D35   RECTANGULAR        81.890      81.890       0.000 FLASH     270.000
+D38   RECTANGULAR        45.276      57.087       0.000 FLASH      90.000
+D39   RECTANGULAR        31.496      31.496       0.000 FLASH      90.000
+D41   RECTANGULAR        31.496      31.496       0.000 FLASH     180.000
+D42   RECTANGULAR        51.181      51.181       0.000 FLASH       0.000
+D43   RECTANGULAR        51.181      51.181       0.000 FLASH      90.000
+D44   RECTANGULAR        25.591      19.685       0.000 FLASH       0.000
+D46   RECTANGULAR        45.276      57.087       0.000 FLASH       0.000
+D47   RECTANGULAR        29.528      39.370       0.000 FLASH       0.000
+D48   RECTANGULAR        29.528      39.370       0.000 FLASH     270.000
+D49   RECTANGULAR        98.425     236.220       0.000 FLASH      90.000
+D50   RECTANGULAR        78.740      51.181       0.000 FLASH      90.000
+D51                      25.590      39.370       0.000 FLASH       0.000
+D52                      26.575      39.370       0.000 FLASH       0.000
+D53   RECTANGULAR        78.740      51.181       0.000 FLASH       0.000
+D54                      26.575      39.370       0.000 FLASH     270.000
+D55                      25.590      39.370       0.000 FLASH     270.000
+D56                      26.575      39.370       0.000 FLASH     180.000
+D57                      25.590      39.370       0.000 FLASH     180.000
+D58                      26.575      39.370       0.000 FLASH      90.000
+D59                      25.590      39.370       0.000 FLASH      90.000
+D60   ROUNDED             9.842       9.842       0.000  LINE       0.000
+D61   ROUNDED            19.685      19.685       0.000  LINE       0.000
+D62   ROUNDED            15.748      15.748       0.000  LINE       0.000
+D63   ROUNDED            55.118      55.118       0.000 FLASH       0.000
+D64   ROUNDED            78.740      78.740       0.000 FLASH       0.000
+D65   ROUNDED            59.055      59.055       0.000 FLASH       0.000
+D66   ROUNDED            47.244      47.244       0.000 FLASH       0.000
+D67   ROUNDED            98.425      70.866       0.000 FLASH      90.000
+D68   ROUNDED            88.583      88.583       0.000 FLASH       0.000
+D69   RECTANGULAR        78.740      78.740       0.000 FLASH     270.000
+D70   ROUNDED            23.622      23.622       0.000 FLASH       0.000
+D71   ROUNDED            17.716      17.716       0.000  LINE       0.000
+D72   ROUNDED             5.906       5.906       0.000  LINE       0.000
+D73   ROUNDED             1.000       1.000       0.000  LINE       0.000
