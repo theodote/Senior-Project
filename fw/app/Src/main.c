@@ -152,7 +152,9 @@ float32_t uMag      [HALF_FRAME_SIZE] = {0.0};
 float32_t meanRatio = 0.0;
 float32_t logMeanRatio = 0.0;
 float32_t coolDown = 0.0;
+float32_t threshold = 0.0;
 bool speech = false;
+bool speechBefore = false;
 bool forceuMag = true;
 bool mute = false;
 bool bypass = false;
@@ -171,6 +173,8 @@ UserControl ctrl = {THRESHOLD, 0, {
 bool justPressed = false;     // protect timer from improper restarting
 uint8_t clickCount = 0;
 uint8_t holdCount = 0;
+uint16_t pinPressed = B1_Pin;
+uint16_t pinOld = B1_Pin;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -213,18 +217,18 @@ static int16_t UserControlUpdate(UserControl* control) {
   ParameterType* type = &(control->curr);
   Parameter* param = &(control->parameters[*type]);
 
-  int32_t count = TIM2->CNT - CNT_MID;
+  int32_t count = (int32_t)(TIM2->CNT) - CNT_MID;
   float32_t newValue = param->ref + count * param->step;
 
   if (newValue > param->max || newValue < param->min) {
-    // TIM2->CNT = control->prevCount;
+    TIM2->CNT = control->prevCount;
   } else {
     param->value = newValue;
     param->ref = newValue;
   }
-  control->prevCount = TIM2->CNT;
+  control->prevCount = (int32_t)TIM2->CNT;
 
-  return TIM2->CNT - CNT_MID;
+  return (int32_t)TIM2->CNT - CNT_MID;
 }
 
 static ParameterType UserControlSwitch(UserControl* control) {
@@ -236,16 +240,16 @@ static ParameterType UserControlSwitch(UserControl* control) {
 }
 
 void HAL_GPIO_EXTI_Callback(uint16_t pin) {
+  if (justPressed == false || TIM10->CNT > BOUNCE_TIME) {
+    pinOld = pinPressed;
+    pinPressed = pin;
+    if (pinPressed != pinOld) {
+      clickCount = 0;
+    }
+    clickCount += 1;
+  }
   if (justPressed == false) {
     justPressed = true;
-    if (pin == B1_Pin) {
-      // bypass = !bypass;
-      forceuMag = true;
-    }
-    if (pin == SwitchBtn_Pin) {
-      UserControlSwitch(&ctrl);
-    }
-
     HAL_TIM_Base_Start_IT(&htim10);
     HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
   }
@@ -253,8 +257,32 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin) {
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &htim10) {
+
+    if (pinPressed == B1_Pin) {   // double press
+      bypass = !bypass;
+    } 
+    else if (pinPressed == SwitchBtn_Pin) {
+      if (clickCount == 1) {
+        if (HAL_GPIO_ReadPin(SwitchBtn_GPIO_Port, SwitchBtn_Pin) == GPIO_PIN_RESET) {
+          holdCount += 1;
+          return;
+        } else {
+          if (holdCount < 2) {
+            mute = !mute;         // single press or shold hold
+          } else {
+            forceuMag = true;     // long hold
+          }
+        }
+      } 
+      else if (clickCount > 1) {
+        UserControlSwitch(&ctrl); // double press
+      }
+    }
+
     HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
     HAL_TIM_Base_Stop_IT(&htim10);
+    clickCount = 0;
+    holdCount = 0;
     justPressed = false;
     TIM10->CNT = 0;
   }
@@ -397,11 +425,14 @@ static void processData() {
     logMeanRatio = 20 * log10f(meanRatio);
     
     // voice activity detection & coyote time
-    float32_t threshold = UserControlValue(&ctrl, THRESHOLD);
+    threshold = UserControlValue(&ctrl, THRESHOLD);
+    speechBefore = speech;
     if (logMeanRatio >= threshold) {
       speech = true;
       coolDown = UserControlValue(&ctrl, COYOTE);
-      HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+      if (speechBefore == false) {
+        HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+      }
     } else {
       if (coolDown > 0.0) {
         speech = true;
@@ -409,7 +440,9 @@ static void processData() {
       } else {
         speech = false;
         coolDown = 0.0;
+        if (speechBefore == true) {
         HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+        }
       }
     }
 
