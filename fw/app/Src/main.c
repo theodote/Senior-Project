@@ -73,8 +73,8 @@ typedef struct {
   volatile bool dmaDone;
   union {
     struct {
-      volatile uint16_t dmaInd;
-      volatile uint16_t activeInds[MAX_BUFS - 1];
+      volatile uint16_t loadInd;
+      volatile uint16_t readyInds[MAX_BUFS - 1];
     };
     volatile uint16_t indices[MAX_BUFS];
   };
@@ -107,10 +107,10 @@ typedef struct {
 #define NEXT(n,m)           ((n) == (m-1) ? 0 : (n+1))  // MIND THE SIDE EFFECTS!
 #define PREV(n,m)           ((n) == 0 ? (m-1) : (n-1))  // MIND THE SIDE EFFECTS!
 
-#define READY_RAW_BUF(b, n) ((int16_t(*)[b.bufSize]) (b.buffers))[b.activeInds[n]]
-#define LOAD_RAW_BUF(b)     ((int16_t(*)[b.bufSize]) (b.buffers))[b.dmaInd]
-#define READY_BUF(b, n)     ((float32_t(*)[b.bufSize]) (b.buffers))[b.activeInds[n]]
-#define LOAD_BUF(b)         ((float32_t(*)[b.bufSize]) (b.buffers))[b.dmaInd]
+#define READY_RAW_BUF(b, n) ((int16_t(*)[b.bufSize]) (b.buffers))[b.readyInds[n]]
+#define LOAD_RAW_BUF(b)     ((int16_t(*)[b.bufSize]) (b.buffers))[b.loadInd]
+#define READY_BUF(b, n)     ((float32_t(*)[b.bufSize]) (b.buffers))[b.readyInds[n]]
+#define LOAD_BUF(b)         ((float32_t(*)[b.bufSize]) (b.buffers))[b.loadInd]
 
 #define INT16_TO_FLOAT(n)   (1.0f / ADC_MAX_F * (n - ADC_MID))
 #define FLOAT_TO_INT16(n)   ((int16_t)(ADC_MAX * n) + ADC_MID)
@@ -183,7 +183,7 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 static void arm_hanning_f32(float32_t * pDst, uint32_t blockSize) {
-  // copied verbatim from GitHub source. ST provides a limited CMSIS DSP implementation.
+  // copied verbatim from GitHub source. ST provides a limited CMSIS DSP implementation
   float32_t k = 2.0f / ((float32_t) blockSize);
   float32_t w;
 
@@ -260,24 +260,25 @@ void HAL_GPIO_EXTI_Callback(uint16_t pin) {
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &htim10) {
 
-    if (pinPressed == B1_Pin) {   // double press
-      bypass = !bypass;
-    } 
-    else if (pinPressed == SwitchBtn_Pin) {
+    if (pinPressed == B1_Pin) {       // blue button
+      bypass = !bypass;               // just in case
+    } else if (pinPressed == SwitchBtn_Pin) {
       if (clickCount == 1) {
         if (HAL_GPIO_ReadPin(SwitchBtn_GPIO_Port, SwitchBtn_Pin) == GPIO_PIN_RESET) {
           holdCount += 1;
           return;
         } else {
-          if (holdCount < 2) {
-            mute = !mute;         // single press or shold hold
-          } else {
-            forceuMag = true;     // long hold
+          if (holdCount < 2) {        // single press or shold hold
+            mute = !mute;
+          } else if (holdCount < 4) { // long hold
+            forceuMag = true;
+          } else {                    // extra spicy long hold
+            bypass = !bypass;
           }
         }
       } 
-      else if (clickCount > 1) {
-        UserControlSwitch(&ctrl); // double press
+      else if (clickCount > 1) {      // double press
+        UserControlSwitch(&ctrl); 
       }
     }
 
@@ -295,7 +296,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
   UNUSED(hadc);
   // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-  
   MultiBufferRotate(&adcBuf);
   adcBuf.dmaDone = true;
 }
@@ -303,7 +303,6 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
   UNUSED(hadc);
   // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-
   MultiBufferRotate(&adcBuf);
   adcBuf.dmaDone = true;
 }
