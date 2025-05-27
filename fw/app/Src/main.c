@@ -160,13 +160,16 @@ bool bypass = false;
 
 arm_rfft_fast_instance_f32 fft;
 
-UserControl ctrl = {THRESHOLD, 0, {
-  {THRESHOLD,     0,  -25.0,  0.0,  1.0, -20.0, -20.0},
-  {VOLUME,        0,   0.0,   1.0,  0.05, 0.9,   0.9},
-  {SUBTRACTIONS,  0,   0.0,   10.0, 1.0,  2.0,   2.0},
-  {ATTENUATION,   0,   0.00,  0.10, 0.01, 0.03,  0.03},
-  {COYOTE,        0,   0.0,   50.0, 5.0,  30.0,  30.0}
-}};
+UserControl ctrl = {
+  THRESHOLD,
+  {
+    {THRESHOLD,     0,  -25.0,  0.0,  1.0, -20.0, -20.0},
+    {VOLUME,        0,   0.0,   1.0,  0.05, 0.9,   0.9},
+    {SUBTRACTIONS,  0,   0.0,   10.0, 1.0,  2.0,   2.0},
+    {ATTENUATION,   0,   0.00,  0.10, 0.01, 0.03,  0.03},
+    {COYOTE,        0,   0.0,   50.0, 5.0,  30.0,  30.0}
+  }
+};
 bool justPressed = false;     // protect timer from improper restarting
 uint8_t clickCount = 0;
 uint8_t holdCount = 0;
@@ -265,12 +268,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     } else if (pinPressed == SwitchBtn_Pin) {
       if (clickCount == 1) {
         if (HAL_GPIO_ReadPin(SwitchBtn_GPIO_Port, SwitchBtn_Pin) == GPIO_PIN_RESET) {
-          holdCount += 1;
-          return;
+          holdCount += 1;             // still held down
+          return;                     // keep counting
         } else {
           if (holdCount < 2) {        // single press or shold hold
             mute = !mute;
-          } else if (holdCount < 4) { // long hold
+          } else if (holdCount < 10) {// long hold
             forceuMag = true;
           } else {                    // extra spicy long hold
             bypass = !bypass;
@@ -316,6 +319,8 @@ static void processData() {
   }
   adcBuf.dmaDone = false;
   MultiBufferRotate(&inBuf);
+
+  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
   
   if (mute) {
     memset(LOAD_BUF(outBuf), 0, FLOAT_HALF_FRAME);
@@ -389,7 +394,7 @@ static void processData() {
       speech = true;
       coolDown = UserControlValue(&ctrl, COYOTE);
       if (speechBefore == false) {
-        HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+        // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
       }
     } else {
       if (coolDown > 0.0) {
@@ -399,7 +404,7 @@ static void processData() {
         speech = false;
         coolDown = 0.0;
         if (speechBefore == true) {
-        HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+        // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
         }
       }
     }
@@ -479,6 +484,7 @@ static void processData() {
       ADC_MAX
     );
   }
+  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
   MultiBufferRotate(&dacBuf);
 }
 
