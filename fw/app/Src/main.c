@@ -163,7 +163,7 @@ arm_rfft_fast_instance_f32 fft;
 UserControl ctrl = {
   THRESHOLD,
   {
-    {THRESHOLD,     0,  -25.0,  0.0,  1.0, -20.0, -20.0},
+    {THRESHOLD,     0,  -25.0,  0.0,  1.0, -12.0, -12.0},
     {VOLUME,        0,   0.0,   1.0,  0.05, 0.9,   0.9},
     {SUBTRACTIONS,  0,   0.0,   10.0, 1.0,  2.0,   2.0},
     {ATTENUATION,   0,   0.00,  0.10, 0.01, 0.03,  0.03},
@@ -320,7 +320,7 @@ static void processData() {
   adcBuf.dmaDone = false;
   MultiBufferRotate(&inBuf);
 
-  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+  // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
   
   if (mute) {
     memset(LOAD_BUF(outBuf), 0, FLOAT_HALF_FRAME);
@@ -394,7 +394,7 @@ static void processData() {
       speech = true;
       coolDown = UserControlValue(&ctrl, COYOTE);
       if (speechBefore == false) {
-        // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
       }
     } else {
       if (coolDown > 0.0) {
@@ -404,7 +404,7 @@ static void processData() {
         speech = false;
         coolDown = 0.0;
         if (speechBefore == true) {
-        // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
         }
       }
     }
@@ -484,7 +484,7 @@ static void processData() {
       ADC_MAX
     );
   }
-  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+  // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
   MultiBufferRotate(&dacBuf);
 }
 
@@ -580,7 +580,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 150;
+  RCC_OscInitStruct.PLL.PLLN = 160;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 2;
   RCC_OscInitStruct.PLL.PLLR = 2;
@@ -605,7 +605,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
   {
     Error_Handler();
   }
