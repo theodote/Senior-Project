@@ -9,7 +9,7 @@ umag = uold;
 if scheme == 1      % so far superior!
     T = 20*log10(mean(Xmag./umag));     % log mean ratio, Boll
 elseif scheme == 2
-    T = mean(20*log10(Xmag./umag));     % mean log ratio, guy with matlab script!
+    T = mean(20*log10(Xmag./umag));     % mean log ratio, script from matlab filex
 else
     T = 0;
 end

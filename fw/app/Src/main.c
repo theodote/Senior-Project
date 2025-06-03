@@ -70,7 +70,7 @@ typedef struct {
   const uint16_t numBufs;
   const uint16_t bufSize;
   const enum { NORMAL, CIRCULAR } dmaMode;
-  volatile bool dmaDone;
+  volatile bool loadDone;
   union {
     struct {
       volatile uint16_t loadInd;
@@ -273,7 +273,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
         } else {
           if (holdCount < 2) {        // single press or shold hold
             mute = !mute;
-          } else if (holdCount < 10) {// long hold
+          } else if (holdCount < 5) { // long hold
             forceuMag = true;
           } else {                    // extra spicy long hold
             bypass = !bypass;
@@ -300,14 +300,14 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
   UNUSED(hadc);
   // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
   MultiBufferRotate(&adcBuf);
-  adcBuf.dmaDone = true;
+  adcBuf.loadDone = true;
 }
 
 void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef *hadc) {
   UNUSED(hadc);
   // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
   MultiBufferRotate(&adcBuf);
-  adcBuf.dmaDone = true;
+  adcBuf.loadDone = true;
 }
 
 
@@ -317,7 +317,7 @@ static void processData() {
   for (int i = 0; i < adcBuf.bufSize; i++) {
     LOAD_BUF(inBuf)[i] = INT16_TO_FLOAT( READY_RAW_BUF(adcBuf, 0)[i] );
   }
-  adcBuf.dmaDone = false;
+  adcBuf.loadDone = false;
   MultiBufferRotate(&inBuf);
 
   // HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
@@ -550,7 +550,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     UserControlUpdate(&ctrl);
-    if (adcBuf.dmaDone == true) {
+    if (adcBuf.loadDone == true) {
       processData();
     }
   }

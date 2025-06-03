@@ -9,14 +9,11 @@ hw = hw(1:end-1);
 % prepare raw audio
 [stereo, fs] = audioread('hellowendy.wav');
 raw = (stereo(:,1) + stereo(:,2)) / 2;
-% raw = raw(9999:end);        % undo fade in for wyd.wav
 nsamples = length(raw);
 nsamples = nsamples - mod(nsamples, framesize);
 raw = raw(1:nsamples);      % truncate. all packets will be framesize
 
 % optionally mess it up
-pinkscale = 0.005;
-% raw = raw + pinkscale * pinknoise(nsamples);
 raw = awgn(raw, 30);
 
 % split into half-windows
@@ -34,7 +31,7 @@ end
 inframes(:,nframes) = [steps(:,nframes) ; zeros(stepsize,1)];
 outframes = inframes(:,:);
 
-%%% MAGIC HAPPENS HERE
+%%% BEGIN PROCESSING
 
 specnoise = fft(inframes(:,1),framesize ,1);    % both frequency domain
 residual = zeros(framesize, 1);
@@ -43,9 +40,9 @@ voiceflags = zeros(stepsize, nframes);          % for debug plots
 flag = 0;
 
 threshold = 3;
-
 countdown = 0;
 avgs = 3;
+
 for i = avgs : nframes
     [ ...
     outframes(:,i), ...
@@ -75,7 +72,7 @@ for i = 2 : nframes
 end
 out = reshape(rebuilt, [], 1);
 
-% plot
+% plot & play
 t = (1:nframes*stepsize)' / fs;
 hold on
 plot(t, raw, ":")
@@ -87,8 +84,6 @@ xlim([0, nframes*stepsize/fs])
 xlabel('Time (s)')
 ylabel('Amplitude (float)')
 title('Spectral subtraction demo')
-% spectrogram(out, hw, stepsize, framesize, fs, 'yaxis')
 sound(raw, fs)
 pause(2.3)
 sound(out, fs)
-% audiowrite('out.wav', out, fs)

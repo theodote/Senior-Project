@@ -1,0 +1,31 @@
+clear, clf;
+
+framesize = 1024;
+stepsize = framesize/2;     % half-window overlap
+hw = hann(framesize+1);
+hw = hw(1:end-1);
+
+[stereo, fs] = audioread('final test.wav');
+raw = (stereo(:,1) + stereo(:,2)) / 2;
+nsamples = length(raw);
+
+bypass = raw(1:86020);      % complete bypass
+normal = raw(86021:end);    % normal operation
+
+t = (1:nsamples)' / fs;
+tb = t(1:86020);
+tn = t(86021:end);
+
+hold on
+% xlim([0, t(end)])
+% ylim([-0.25, 0.35])
+% plot(tb, bypass)
+% plot(tn, normal)
+% legend('"Complete bypass"', '"Normal operation"')
+% xlabel('Time (s)')
+% ylabel('Amplitude (float)')
+% title('Pale Sieve demonstration')
+
+% sound(raw, fs)
+spectrogram(raw, hw, stepsize, [], fs, 'yaxis')
+colormap bone
